@@ -13,7 +13,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {/* Essay Writing */}
           <div className="group bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
             <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -118,33 +118,6 @@ const ServicesSection = () => {
               <li className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                 Data Analysis
-              </li>
-            </ul>
-          </div>
-
-          {/* Software Work Support */}
-          <div className="group bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-2xl border border-indigo-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-indigo-900 mb-4">Software Work Support</h3>
-            <p className="text-gray-700 mb-6 leading-relaxed">
-              Expert assistance with specialized software applications for engineering, analysis, and research projects.
-            </p>
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                SolidWorks CAD
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                ANSYS Simulation
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                SPSS Analytics
               </li>
             </ul>
           </div>
