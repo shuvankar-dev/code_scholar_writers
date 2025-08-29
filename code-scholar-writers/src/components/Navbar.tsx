@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "../lib/utils";
 
-const Navbar = () => {
+interface NavbarProps {
+  onCalculatePrice: () => void;
+}
+
+const Navbar = ({ onCalculatePrice }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
@@ -43,8 +47,11 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Get Started
+            <button 
+              onClick={onCalculatePrice}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              Calculate Price
             </button>
           </div>
 
@@ -77,8 +84,14 @@ const Navbar = () => {
             </a>
           ))}
           <div className="px-3 py-2">
-            <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg">
-              Get Started
+            <button 
+              onClick={() => {
+                onCalculatePrice();
+                setIsOpen(false);
+              }}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+            >
+              Calculate Price
             </button>
           </div>
         </div>
