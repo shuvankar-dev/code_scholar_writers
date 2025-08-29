@@ -209,6 +209,95 @@ const PriceCalculator = () => {
     }
   };
 
+  // Calculate price based on form data
+  const calculatePrice = () => {
+    if (!formData.serviceId || !formData.academicLevelId || !formData.urgencyId) {
+      return;
+    }
+
+    setLoading(true);
+
+    // Simulate API calculation delay
+    setTimeout(() => {
+      let basePrice = 0;
+      
+      // Base price calculation based on service and units
+      const service = calculatorData.services.find(s => s.id === Number(formData.serviceId));
+      const academicLevel = calculatorData.academicLevels.find(al => al.id === Number(formData.academicLevelId));
+      const urgencyOption = calculatorData.urgencyOptions.find(uo => uo.id === Number(formData.urgencyId));
+      
+      if (!service || !academicLevel || !urgencyOption) {
+        setLoading(false);
+        return;
+      }
+
+      // Calculate base price based on service type
+      switch (service.unit_type) {
+        case 'words':
+          const wordCount = Number(formData.units) || 0;
+          basePrice = wordCount * 2; // ₹2 per word base rate
+          break;
+        case 'selection':
+          // For data analysis tools
+          const selectedTool = calculatorData.toolOptions.find(tool => tool.tool_name === formData.toolSelection);
+          basePrice = 5000 * (selectedTool?.price_multiplier || 1); // Base ₹5000 for data analysis
+          break;
+        case 'description':
+          // For programming projects - fixed base rate
+          basePrice = 10000; // Base ₹10000 for programming projects
+          break;
+        default:
+          basePrice = 1000;
+      }
+
+      // Apply academic level multiplier
+      basePrice *= academicLevel.multiplier;
+
+      // Apply urgency multiplier
+      basePrice *= urgencyOption.multiplier;
+
+      // Add addon price if selected
+      if (formData.selectedAddon) {
+        const addon = calculatorData.addons.find(a => a.id === Number(formData.selectedAddon));
+        if (addon) {
+          if (addon.price_type === 'fixed') {
+            basePrice += addon.price;
+          } else if (addon.price_type === 'percentage') {
+            basePrice *= (1 + addon.price);
+          } else if (addon.price_type === 'per_word' && service.unit_type === 'words') {
+            basePrice += addon.price * Number(formData.units);
+          }
+        }
+      }
+
+      // Round to nearest rupee
+      const finalPrice = Math.round(basePrice);
+      setCalculatedPrice(finalPrice);
+      setLoading(false);
+    }, 1000);
+  };
+
+  // Check if form is valid for calculation
+  const isFormValid = () => {
+    if (!formData.serviceId || !formData.academicLevelId || !formData.urgencyId) {
+      return false;
+    }
+    
+    if (selectedService) {
+      if (selectedService.unit_type === 'words' && !formData.units) {
+        return false;
+      }
+      if (selectedService.unit_type === 'selection' && !formData.toolSelection) {
+        return false;
+      }
+      if (selectedService.unit_type === 'description' && !formData.projectDescription) {
+        return false;
+      }
+    }
+    
+    return true;
+  };
+
   // Render different input fields based on service type
   const renderUnitInput = () => {
     if (!selectedService) return null;
@@ -404,22 +493,68 @@ const PriceCalculator = () => {
         {/* Calculate Button */}
         <button
           type="button"
-          disabled={!formData.serviceId || !formData.academicLevelId || !formData.urgencyId}
+          onClick={calculatePrice}
+          disabled={!isFormValid() || loading}
           className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Calculating...' : 'Calculate Price'}
         </button>
 
-        {/* Price Display (Placeholder) */}
+        {/* Price Display */}
         <div className="bg-gray-50 rounded-lg p-4 text-center">
           <p className="text-sm text-gray-600 mb-1">Estimated Price</p>
           <p className="text-2xl font-bold text-blue-600">
-            ₹ ---.--
+            {calculatedPrice > 0 ? `₹ ${calculatedPrice.toLocaleString('en-IN')}` : '₹ ---.--'}
           </p>
           <p className="text-xs text-gray-500 mt-1">
             Final price may vary based on requirements
           </p>
+          {calculatedPrice > 0 && (
+            <div className="mt-3 pt-3 border-t border-gray-200">
+              <p className="text-xs text-gray-600 mb-2">Price breakdown:</p>
+              <div className="text-xs text-gray-500 space-y-1">
+                <div className="flex justify-between">
+                  <span>Service:</span>
+                  <span>{calculatorData.services.find(s => s.id === Number(formData.serviceId))?.name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Academic Level:</span>
+                  <span>{calculatorData.academicLevels.find(al => al.id === Number(formData.academicLevelId))?.name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Deadline:</span>
+                  <span>{calculatorData.urgencyOptions.find(uo => uo.id === Number(formData.urgencyId))?.name}</span>
+                </div>
+                {formData.selectedAddon && (
+                  <div className="flex justify-between">
+                    <span>Add-on:</span>
+                    <span>{calculatorData.addons.find(a => a.id === Number(formData.selectedAddon))?.name}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* Order/Quote Button - Show after price calculation */}
+        {calculatedPrice > 0 && (
+          <div className="space-y-3">
+            <button
+              type="button"
+              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg"
+              onClick={() => alert('Order functionality will be implemented soon!')}
+            >
+              Order Now - ₹{calculatedPrice.toLocaleString('en-IN')}
+            </button>
+            <button
+              type="button"
+              className="w-full bg-white border-2 border-blue-600 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300"
+              onClick={() => alert('Quote request functionality will be implemented soon!')}
+            >
+              Request Custom Quote
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
