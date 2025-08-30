@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "../lib/utils";
+import logo from '/logo.png';
 
 interface NavbarProps {
   onCalculatePrice: () => void;
@@ -24,6 +25,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="#" className="flex items-center">
+              <img src={logo} alt="Code Scholar Writers" className="h-45 w-45 mr-2" />
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Code Scholar Writers
               </span>
