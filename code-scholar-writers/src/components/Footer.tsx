@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 function Footer() {
   return (
     <footer className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 text-white">
@@ -60,29 +58,29 @@ function Footer() {
             <h3 className="text-lg font-semibold mb-4 text-yellow-400">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/about" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
+                <a href="#about" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
                   About Us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/services" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
+                <a href="#services" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
                   Our Services
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/pricing" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
+                <a href="#pricing" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
                   Pricing
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
+                <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
                   Contact
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/faq" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
+                <a href="#faq" className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">
                   FAQ
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -126,12 +124,12 @@ function Footer() {
             &copy; {new Date().getFullYear()} Code Scholar Writers. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+            <a href="#privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
               Privacy Policy
-            </Link>
-            <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
+            </a>
+            <a href="#terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">
               Terms of Service
-            </Link>
+            </a>
           </div>
         </div>
       </div>

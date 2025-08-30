@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import ServicesSection from './components/ServicesSection'
 import PriceCalculator from './components/PriceCalculator'
+import Footer from './components/Footer'
 
 function App() {
   const [showCalculator, setShowCalculator] = useState(false)
@@ -12,7 +13,8 @@ function App() {
       <Navbar onCalculatePrice={() => setShowCalculator(true)} />
       <HeroSection />
       <ServicesSection />
-      
+      <Footer />
+
       {/* Price Calculator Modal/Overlay */}
       {showCalculator && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
