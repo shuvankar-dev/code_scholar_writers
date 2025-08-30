@@ -8,7 +8,6 @@ interface Service {
   category: string;
   features: string[];
   icon: string;
-  basePrice: number;
   turnaroundTime: string;
   samples: string[];
 }
@@ -49,7 +48,6 @@ const ServicesPage = () => {
                 "Plagiarism Report"
               ],
               icon: "📝",
-              basePrice: 15,
               turnaroundTime: "24 hours",
               samples: ["Argumentative Essays", "Narrative Essays", "Descriptive Essays"]
             },
@@ -66,7 +64,6 @@ const ServicesPage = () => {
                 "APA/MLA Formatting"
               ],
               icon: "🔬",
-              basePrice: 25,
               turnaroundTime: "3-5 days",
               samples: ["Scientific Research", "Social Studies", "Literature Analysis"]
             },
@@ -83,7 +80,6 @@ const ServicesPage = () => {
                 "Unlimited Revisions"
               ],
               icon: "🎓",
-              basePrice: 45,
               turnaroundTime: "2-4 weeks",
               samples: ["PhD Dissertations", "Master's Thesis", "Research Proposals"]
             }
@@ -106,9 +102,8 @@ const ServicesPage = () => {
                 "Deployment Support"
               ],
               icon: "💻",
-              basePrice: 35,
               turnaroundTime: "1-2 weeks",
-              samples: ["React Applications", "Node.js Backend", "E-commerce Sites"]
+              samples: ["React Applications", "E-commerce Sites"]
             },
             {
               id: 5,
@@ -123,7 +118,6 @@ const ServicesPage = () => {
                 "App Store Submission"
               ],
               icon: "📱",
-              basePrice: 50,
               turnaroundTime: "2-4 weeks",
               samples: ["Flutter Apps", "React Native", "Native iOS/Android"]
             },
@@ -140,7 +134,6 @@ const ServicesPage = () => {
                 "Code Explanation"
               ],
               icon: "⚡",
-              basePrice: 20,
               turnaroundTime: "1-3 days",
               samples: ["Python Scripts", "Java Projects", "C++ Programs"]
             }
@@ -163,7 +156,6 @@ const ServicesPage = () => {
                 "Data Visualization"
               ],
               icon: "📊",
-              basePrice: 30,
               turnaroundTime: "2-5 days",
               samples: ["SPSS Output", "R Analysis", "Python Jupyter Notebooks"]
             },
@@ -180,7 +172,6 @@ const ServicesPage = () => {
                 "Web-based Viz"
               ],
               icon: "📈",
-              basePrice: 25,
               turnaroundTime: "1-3 days",
               samples: ["Tableau Dashboards", "Power BI Reports", "D3.js Charts"]
             }
@@ -282,7 +273,7 @@ const ServicesPage = () => {
                     </div>
 
                     {/* Pricing & Timeline */}
-                    <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+                    {/* <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm text-gray-600">Starting from:</span>
                         <span className="text-2xl font-bold text-blue-600">${service.basePrice}/page</span>
@@ -291,11 +282,11 @@ const ServicesPage = () => {
                         <span className="text-sm text-gray-600">Delivery:</span>
                         <span className="text-sm font-semibold text-green-600">{service.turnaroundTime}</span>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Sample Types */}
                     <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-3">Sample Types:</h4>
+                      <h4 className="font-semibold text-gray-900 mb-3">Types:</h4>
                       <div className="flex flex-wrap gap-2">
                         {service.samples.map((sample, index) => (
                           <span 
@@ -310,9 +301,9 @@ const ServicesPage = () => {
 
                     {/* Action Buttons */}
                     <div className="space-y-3">
-                      <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                      {/* <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
                         Order Now
-                      </button>
+                      </button> */}
                       <button className="w-full border-2 border-blue-600 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300">
                         Get Free Quote
                       </button>

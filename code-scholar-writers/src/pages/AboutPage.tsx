@@ -161,7 +161,7 @@ const AboutPage = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Leadership</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Experienced professionals leading our mission to transform academic assistance
             </p>
@@ -171,9 +171,9 @@ const AboutPage = () => {
             {/* Founder 1 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
               <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">SM</span>
+                <span className="text-2xl font-bold text-white">SD</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. Sarah Mitchell</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Shuvankar Das</h3>
               <p className="text-blue-600 font-semibold mb-4">Co-Founder & CEO</p>
               <p className="text-gray-600 leading-relaxed">
                 PhD in Educational Psychology, 15+ years in academic consulting. Passionate about 
@@ -184,9 +184,9 @@ const AboutPage = () => {
             {/* Founder 2 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
               <div className="w-24 h-24 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">JC</span>
+                <span className="text-2xl font-bold text-white">SS</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Prof. James Chen</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Saikat Saha</h3>
               <p className="text-purple-600 font-semibold mb-4">Co-Founder & CTO</p>
               <p className="text-gray-600 leading-relaxed">
                 Professor of Computer Science, expert in educational technology. Leads our 
@@ -199,7 +199,7 @@ const AboutPage = () => {
               <div className="w-24 h-24 bg-gradient-to-r from-green-600 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-white">AR</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Dr. Amanda Rodriguez</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Ananya Roy</h3>
               <p className="text-green-600 font-semibold mb-4">Head of Quality Assurance</p>
               <p className="text-gray-600 leading-relaxed">
                 PhD in Literature, ensures every piece of work meets our rigorous quality standards. 
