@@ -26,10 +26,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="Code Scholar Writers" className="h-45 w-45 mr-2" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Code Scholar Writers
-              </span>
+              <img src={logo} alt="Code Scholar Writers" className="h-45 w-45" />
             </Link>
           </div>
 
@@ -41,7 +38,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
+                    className="text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-bold transition-all duration-300 hover:scale-105"
                   >
                     {item.name}
                   </a>
@@ -49,7 +46,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
+                    className="text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-bold transition-all duration-300 hover:scale-105"
                   >
                     {item.name}
                   </Link>
@@ -58,13 +55,16 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-4">
             <button 
               onClick={onCalculatePrice}
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Calculate Price
+            </button>
+            <button className="bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg">
+              Get Free Quote
             </button>
           </div>
 
@@ -91,7 +91,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-lg font-bold transition-colors duration-300"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
@@ -100,14 +100,14 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-lg font-bold transition-colors duration-300"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </Link>
             )
           ))}
-          <div className="px-3 py-2">
+          <div className="px-3 py-2 space-y-3">
             <button 
               onClick={() => {
                 onCalculatePrice();
@@ -116,6 +116,12 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
             >
               Calculate Price
+            </button>
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="w-full bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg"
+            >
+              Get Free Quote
             </button>
           </div>
         </div>
