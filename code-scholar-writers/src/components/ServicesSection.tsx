@@ -1,3 +1,5 @@
+import { PixelImage } from "@/components/magicui/pixel-image";
+
 const ServicesSection = () => {
   return (
     <section className="bg-white py-20">
@@ -155,12 +157,15 @@ const ServicesSection = () => {
 
               {/* Central Image Container */}
               <div className="relative z-10 flex items-center justify-center h-80 md:h-96">
-                <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-white shadow-2xl border-4 border-white overflow-hidden relative">
-                  {/* Student Image */}
-                  <img 
-                    src="/student-success.jpg" 
-                    alt="Academic Success" 
-                    className="w-full h-full object-cover"
+                <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-white shadow-2xl border-4 border-white overflow-hidden relative flex items-center justify-center">
+                  {/* Student Image with Pixel Animation */}
+                  <PixelImage
+                    src="/student-success.jpg"
+                    customGrid={{ rows: 6, cols: 6 }}
+                    grayscaleAnimation
+                    pixelFadeInDuration={1200}
+                    maxAnimationDelay={1500}
+                    colorRevealDelay={1800}
                   />
                 </div>
               </div>
