@@ -123,6 +123,165 @@ const ServicesSection = () => {
           </div>
         </div>
 
+        {/* 360 Solutions - Clean Orbital Layout */}
+        <div className="py-12 bg-gray-50 relative overflow-hidden">
+          <div className="max-w-6xl mx-auto px-6">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <div className="inline-block px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold mb-4 shadow-lg">
+                360 SOLUTIONS
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                Find Every Solution, From Research to
+                <br />
+                <span className="text-blue-600">Academic Excellence</span>
+              </h2>
+              <p className="text-base text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Access our full 360 Solutions, covering everything from research to final submission. Get expert 
+                assistance, explore quality services, and invest in your future with comprehensive academic 
+                support. It's all here.
+              </p>
+              <button className="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Get Started Now
+              </button>
+            </div>
+
+            {/* Orbital Services Layout */}
+            <div className="relative max-w-4xl mx-auto">
+              {/* Background Circle */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-80 h-80 md:w-96 md:h-96 rounded-full border-2 border-dashed border-gray-200"></div>
+              </div>
+
+              {/* Central Image Container */}
+              <div className="relative z-10 flex items-center justify-center h-80 md:h-96">
+                <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-white shadow-2xl border-4 border-white overflow-hidden relative">
+                  {/* Student Image */}
+                  <img 
+                    src="/student-success.jpg" 
+                    alt="Academic Success" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Service Cards - Positioned Around Circle */}
+              
+              {/* Assignment Help - Top Left */}
+              <div className="absolute top-4 left-4 md:top-8 md:left-12">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Assignment Help</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Essay Writing - Top Center */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Essay Writing</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Data Analysis - Top Right */}
+              <div className="absolute top-4 right-4 md:top-8 md:right-12">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Data Analysis</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Programming - Right */}
+              <div className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-1">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Programming</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Research Papers - Bottom Right */}
+              <div className="absolute bottom-4 right-4 md:bottom-8 md:right-12">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Research Papers</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Thesis Writing - Left */}
+              <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Thesis Writing</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* CAD Design - Bottom Left */}
+              <div className="absolute bottom-4 left-4 md:bottom-8 md:left-12">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">CAD Design</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dissertation - Bottom Center */}
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1">
+                <div className="bg-white rounded-xl shadow-lg px-4 py-3 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 min-w-[140px]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <span className="font-semibold text-gray-800 text-xs">Dissertation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Why Choose Us Section */}
         <div className="bg-gray-50 rounded-3xl p-12">
           <div className="text-center mb-12">
