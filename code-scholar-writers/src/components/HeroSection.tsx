@@ -1,6 +1,8 @@
+import PriceCalculator from './PriceCalculator';
+
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center overflow-hidden">
+    <section className="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden">
       {/* Academic Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Elegant gradient overlays */}
@@ -12,8 +14,9 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
+      {/* Main Content Container */}
+      <div className="relative z-10 min-h-[80vh] flex items-center pt-24 pb-32">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-8 items-center w-full">
         {/* Left Content */}
         <div className="text-gray-800">
           <div className="inline-flex items-center gap-2 bg-white/80 border border-blue-200/50 rounded-full px-4 py-2 mb-6 backdrop-blur-sm shadow-sm">
@@ -21,22 +24,22 @@ const HeroSection = () => {
             <span className="text-blue-700 text-sm font-medium">Trusted Academic Writing Services</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
             <span className="text-gray-900">
               Welcome to
             </span>
-            <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mt-2">
+            <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mt-1">
               CodeScholar Writers
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl mb-8 text-gray-600 leading-relaxed max-w-xl font-light">
+          <p className="text-lg md:text-xl mb-6 text-gray-600 leading-relaxed max-w-xl font-light">
             Professional academic writing solutions for students worldwide. Get expert assistance from our team of 
             <span className="text-blue-600 font-medium"> qualified academic writers</span> with 7+ years of experience.
           </p>
 
           {/* Academic Stats */}
-          <div className="flex flex-wrap gap-6 mb-8">
+          <div className="flex flex-wrap gap-4 mb-6">
             <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-gray-200/50 rounded-xl px-4 py-3 shadow-sm">
               <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-md">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -74,99 +77,310 @@ const HeroSection = () => {
           </button>
         </div>
 
-        {/* Right Content - Academic Price Calculator */}
-        <div className="relative group">
-          {/* Subtle glow effect */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-200/30 via-indigo-200/30 to-purple-200/30 rounded-3xl blur-lg group-hover:blur-xl transition-all duration-300"></div>
-          
-          <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl p-8 max-w-md mx-auto lg:mx-0 border border-gray-200/50">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Calculate Your Price</h3>
-                <p className="text-sm text-gray-600">Instant academic quote</p>
-              </div>
+        {/* Right Content - Main Price Calculator */}
+        <div className="relative">
+          <PriceCalculator />
+        </div>
+      </div>
+    </div>
+
+      {/* Moving Sections Container - Positioned at the bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-white/60 via-white/30 to-transparent pb-4">
+        {/* Moving Trusted By Students Section */}
+        <div className="mb-2 overflow-hidden">
+          <div className="relative flex items-center">
+            {/* Fixed Label */}
+            <div className="absolute left-6 top-0 z-20 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm border border-gray-100">
+              <span className="text-gray-700 font-semibold text-sm">Trusted by Students Worldwide:</span>
             </div>
             
-            <form className="space-y-6">
-              {/* Service Type */}
-              <div>
-                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  Service Type
-                </label>
-                <select className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50/50 hover:bg-white">
-                  <option>Select service type</option>
-                  <option>Essay Writing</option>
-                  <option>Research Paper</option>
-                  <option>Assignment</option>
-                  <option>Coding Project</option>
-                </select>
-              </div>
-
-              {/* Pages and Level */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">Pages</label>
-                  <input 
-                    type="number" 
-                    placeholder="1" 
-                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" 
-                  />
+            {/* Gradient overlays for smooth fade effect */}
+            <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white/80 to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white/80 to-transparent z-10"></div>
+            
+            {/* Scrolling Universities - Only icons move */}
+            <div className="flex animate-scroll-slow ml-80">
+              {/* First set - USA Universities */}
+              <div className="flex items-center justify-center min-w-max py-2">
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Harvard</span>
                 </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">Academic Level</label>
-                  <select className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50/50 hover:bg-white">
-                    <option>Level</option>
-                    <option>High School</option>
-                    <option>College</option>
-                    <option>University</option>
-                    <option>PhD</option>
-                  </select>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-700 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">MIT</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-yellow-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Stanford</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-purple-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Princeton</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇬🇧</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Oxford</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-800 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇬🇧</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Cambridge</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇬🇧</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">LSE</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-orange-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">��</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">ANU</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-700 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">��</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Sydney</span>
                 </div>
               </div>
-
-              {/* Deadline */}
-              <div>
-                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
-                  <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                  Deadline
-                </label>
-                <select className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50/50 hover:bg-white">
-                  <option>Select deadline</option>
-                  <option>24 hours</option>
-                  <option>3 days</option>
-                  <option>1 week</option>
-                  <option>2 weeks</option>
-                </select>
-              </div>
-
-              {/* Price Display */}
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-100 rounded-xl p-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-700 font-medium">Estimated Price:</span>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">$25.00</span>
+              
+              {/* Duplicate for seamless loop */}
+              <div className="flex items-center justify-center min-w-max py-2">
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Harvard</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-700 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">MIT</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-yellow-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Stanford</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-purple-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇺🇸</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Princeton</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇬🇧</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Oxford</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-800 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">��</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Cambridge</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">��</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">LSE</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-orange-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇦🇺</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">ANU</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-700 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🇦🇺</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Sydney</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-              {/* Academic Get Started Button */}
-              <button 
-                type="button" 
-                className="group relative w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:scale-[1.02] overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative flex items-center justify-center gap-2">
-                  <span>Get Started Now</span>
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+        {/* Moving Business Associates Section */}
+        <div className="overflow-hidden">
+          <div className="relative flex items-center">
+            {/* Fixed Label */}
+            <div className="absolute left-6 top-0 z-20 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm border border-gray-100">
+              <span className="text-gray-700 font-semibold text-sm">Our Academic Services:</span>
+            </div>
+            
+            {/* Gradient overlays for smooth fade effect */}
+            <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white/80 to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white/80 to-transparent z-10"></div>
+            
+            {/* Scrolling Services - Only icons move */}
+            <div className="flex animate-scroll-reverse ml-72">
+              {/* First set - Core Services */}
+              <div className="flex items-center justify-center min-w-max py-2">
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">📝</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Essay Writing</span>
                 </div>
-              </button>
-            </form>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-purple-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🔬</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Research Papers</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-green-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">📊</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Dissertations</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-orange-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">📋</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Assignments</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">✏️</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Editing</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-indigo-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🎓</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Thesis</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-teal-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">📖</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Coursework</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-pink-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Programming</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-yellow-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Case Studies</span>
+                </div>
+              </div>
+              
+              {/* Duplicate for seamless loop */}
+              <div className="flex items-center justify-center min-w-max py-2">
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Essay Writing</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-purple-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Research Papers</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-green-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">📊</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Dissertations</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-orange-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">📋</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Assignments</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">✏️</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Editing</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-indigo-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">🎓</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Thesis</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-teal-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Coursework</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-pink-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Programming</span>
+                </div>
+                
+                <div className="flex items-center mx-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm border border-gray-100">
+                  <div className="w-6 h-6 bg-yellow-600 rounded-md flex items-center justify-center mr-2">
+                    <span className="text-white font-bold text-xs">�</span>
+                  </div>
+                  <span className="font-semibold text-gray-800 text-xs">Case Studies</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

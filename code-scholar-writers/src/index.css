@@ -19,7 +19,25 @@ body {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-slow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -28,5 +46,21 @@ body {
 }
 
 .animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+.animate-scroll-slow {
+  animation: scroll-slow 40s linear infinite;
+}
+
+.animate-scroll-slow:hover {
+  animation-play-state: paused;
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 35s linear infinite;
+}
+
+.animate-scroll-reverse:hover {
   animation-play-state: paused;
 }
