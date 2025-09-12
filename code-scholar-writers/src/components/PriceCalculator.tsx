@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ShineBorder } from '@/components/magicui/shine-border';
 
 // Type definitions
 interface Service {
@@ -369,9 +370,15 @@ const PriceCalculator = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-5xl mx-auto lg:mx-0">
-      {/* Calculator Header */}
-      <div className="flex items-center gap-2 mb-4">
+    <div className="relative overflow-hidden w-full max-w-4xl mx-auto lg:mx-0 rounded-2xl bg-white min-h-[600px]">
+      <ShineBorder 
+        shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} 
+        borderWidth={4}
+        duration={3}
+      />
+      <div className="relative z-10 p-8 w-full h-full">
+        {/* Calculator Header */}
+        <div className="flex items-center gap-2 mb-6">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
           <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -380,11 +387,11 @@ const PriceCalculator = () => {
         <h3 className="text-xl font-bold text-gray-900">Calculate Your Price</h3>
       </div>
       
-      <p className="text-gray-600 mb-4">Get an instant quote for your academic writing needs</p>
+      <p className="text-gray-600 mb-8">Get an instant quote for your academic writing needs</p>
 
-      <form className="space-y-4">
+      <form className="space-y-8">
         {/* Service Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
             <div className="flex items-center gap-2">
@@ -448,7 +455,10 @@ const PriceCalculator = () => {
             ))}
           </select>
         </div>
-        
+    </div>
+
+      {/* Add-ons Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Add-ons */}
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
@@ -470,10 +480,8 @@ const PriceCalculator = () => {
             ))}
           </select>
         </div>
-    </div>
 
-      {/* Currency Selection Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      {/* Currency Selection */}
           <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
             <div className="w-4 h-4 "></div>
@@ -562,6 +570,7 @@ const PriceCalculator = () => {
           </div>
         )}
       </form>
+      </div>
     </div>
   );
 };

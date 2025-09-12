@@ -310,150 +310,130 @@ const ServicesSection = () => {
                 {/* First set of logos */}
                 <div className="flex items-center justify-center min-w-max">
                   {/* UK Universities */}
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">OX</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/OX.png" alt="University of Oxford" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Oxford</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">CAM</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/CAM.png" alt="University of Cambridge" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Cambridge</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">LSE</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/LSE.png" alt="London School of Economics" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">London School of Economics</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">ICL</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/ICL.png" alt="Imperial College London" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">Imperial College London</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UCL</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UCL.png" alt="University College London" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University College London</span>
                   </div>
                   
                   {/* Australian Universities */}
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">ANU</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/ANU.png" alt="Australian National University" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">Australian National University</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-blue-700 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">USY</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/USY.png" alt="University of Sydney" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Sydney</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UML</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UML.png" alt="University of Melbourne" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Melbourne</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UQ</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UQ.png" alt="University of Queensland" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Queensland</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UNSW</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UNSW.png" alt="UNSW Sydney" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">UNSW Sydney</span>
                   </div>
                 </div>
                 
                 {/* Duplicate set for seamless loop */}
                 <div className="flex items-center justify-center min-w-max">
                   {/* UK Universities */}
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">OX</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/OX.png" alt="University of Oxford" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Oxford</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">CAM</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/CAM.png" alt="University of Cambridge" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Cambridge</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">LSE</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/LSE.png" alt="London School of Economics" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">London School of Economics</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">ICL</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/ICL.png" alt="Imperial College London" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">Imperial College London</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UCL</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UCL.png" alt="University College London" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University College London</span>
                   </div>
                   
                   {/* Australian Universities */}
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">ANU</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/ANU.png" alt="Australian National University" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">Australian National University</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-blue-700 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">USY</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/USY.png" alt="University of Sydney" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Sydney</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UML</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UML.png" alt="University of Melbourne" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Melbourne</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UQ</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UQ.png" alt="University of Queensland" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">University of Queensland</span>
                   </div>
                   
-                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center mr-3">
-                      <span className="text-white font-bold text-sm">UNSW</span>
+                  <div className="flex items-center mx-8 bg-gray-50 rounded-xl px-8 py-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="/UnivercityLogo/UNSW.png" alt="UNSW Sydney" className="w-full h-full object-contain" />
                     </div>
-                    <span className="font-semibold text-gray-800">UNSW Sydney</span>
                   </div>
                 </div>
               </div>
