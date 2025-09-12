@@ -369,9 +369,9 @@ const PriceCalculator = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-8 max-2xl mx-auto lg:mx-0">
+    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-5xl mx-auto lg:mx-0">
       {/* Calculator Header */}
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
           <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -380,11 +380,11 @@ const PriceCalculator = () => {
         <h3 className="text-xl font-bold text-gray-900">Calculate Your Price</h3>
       </div>
       
-      <p className="text-gray-600 mb-6">Get an instant quote for your academic writing needs</p>
+      <p className="text-gray-600 mb-4">Get an instant quote for your academic writing needs</p>
 
-      <form className="space-y-6">
+      <form className="space-y-4">
         {/* Service Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         <div>
           <label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
             <div className="flex items-center gap-2">
@@ -448,11 +448,12 @@ const PriceCalculator = () => {
             ))}
           </select>
         </div>
+        
         {/* Add-ons */}
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
             <div className="w-4 h-4 "></div>
-            Add-ons (Optional)
+            Add-ons
           </label>
           <select
             value={formData.selectedAddon}
@@ -471,7 +472,8 @@ const PriceCalculator = () => {
         </div>
     </div>
 
-      {/* Currency Selection */}
+      {/* Currency Selection Row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
             <div className="w-4 h-4 "></div>
@@ -489,28 +491,32 @@ const PriceCalculator = () => {
             ))}
           </select>
         </div>
+        
+        {/* Empty space for alignment */}
+        <div></div>
+      </div>
 
         {/* Calculate Button */}
         <button
           type="button"
           onClick={calculatePrice}
           disabled={!isFormValid() || loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Calculating...' : 'Calculate Price'}
         </button>
 
         {/* Price Display */}
-        <div className="bg-gray-50 rounded-lg p-4 text-center">
+        <div className="bg-gray-50 rounded-lg p-3 text-center">
           <p className="text-sm text-gray-600 mb-1">Estimated Price</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-xl font-bold text-blue-600">
             {calculatedPrice > 0 ? `₹ ${calculatedPrice.toLocaleString('en-IN')}` : '₹ ---.--'}
           </p>
           <p className="text-xs text-gray-500 mt-1">
             Final price may vary based on requirements
           </p>
           {calculatedPrice > 0 && (
-            <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="mt-2 pt-2 border-t border-gray-200">
               <p className="text-xs text-gray-600 mb-2">Price breakdown:</p>
               <div className="text-xs text-gray-500 space-y-1">
                 <div className="flex justify-between">
