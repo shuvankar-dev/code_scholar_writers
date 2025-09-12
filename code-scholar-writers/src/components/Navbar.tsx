@@ -11,6 +11,14 @@ interface NavbarProps {
 const Navbar = ({ onCalculatePrice }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // WhatsApp integration function
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "918274806946"; // Remove spaces and special characters for URL
+    const message = "Hi Code Scholar, can you send me more details for my assignment?";
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+  };
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
@@ -63,7 +71,10 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
             >
               Calculate Price
             </button>
-            <button className="bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button 
+              onClick={handleWhatsAppClick}
+              className="bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
               Get Free Quote
             </button>
           </div>
@@ -118,7 +129,10 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
               Calculate Price
             </button>
             <button 
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                handleWhatsAppClick();
+                setIsOpen(false);
+              }}
               className="w-full bg-gray-800 text-blue-400 border-2 border-blue-400 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-400 hover:text-gray-900 transition-all duration-300 shadow-lg"
             >
               Get Free Quote
