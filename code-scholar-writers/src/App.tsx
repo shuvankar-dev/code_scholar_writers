@@ -4,10 +4,12 @@ import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import ServicesSection from './components/ServicesSection'
 import PriceCalculator from './components/PriceCalculator'
+import WelcomeModal from './components/WelcomeModal'
 import Footer from './components/Footer'
 import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
 import PricingPage from './pages/PricingPage'
+import { useWelcomeModal } from './hooks/useWelcomeModal'
 
 function App() {
   const [showCalculator, setShowCalculator] = useState(false)
@@ -18,12 +20,7 @@ function App() {
         <Navbar onCalculatePrice={() => setShowCalculator(true)} />
         
         <Routes>
-          <Route path="/" element={
-            <>
-              <HeroSection />
-              <ServicesSection />
-            </>
-          } />
+          <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
@@ -52,6 +49,21 @@ function App() {
         )}
       </div>
     </Router>
+  )
+}
+
+// Home Page Component with Welcome Modal
+function HomePage() {
+  const { isModalOpen, closeModal } = useWelcomeModal()
+
+  return (
+    <>
+      <HeroSection />
+      <ServicesSection />
+      
+      {/* Welcome Modal - Only shows on home page for first-time visitors */}
+      <WelcomeModal isOpen={isModalOpen} onClose={closeModal} />
+    </>
   )
 }
 
