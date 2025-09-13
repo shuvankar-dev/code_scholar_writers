@@ -67,6 +67,15 @@ const PriceCalculator = () => {
     currency: 'INR'
   });
 
+  // Customer details for order
+  const [customerData, setCustomerData] = useState({
+    customer_name: '',
+    customer_email: '',
+    customer_phone: '',
+    subject: '',
+    instructions: ''
+  });
+
   // Data from API (will be fetched later)
   const [calculatorData, setCalculatorData] = useState<CalculatorData>({
     services: [],
@@ -80,6 +89,10 @@ const PriceCalculator = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [showOrderForm, setShowOrderForm] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
   // Mock data for now (will replace with API calls)
   useEffect(() => {
@@ -189,6 +202,100 @@ const PriceCalculator = () => {
       ]
     });
   }, []);
+
+  // Handle customer data input changes
+  const handleCustomerInputChange = (field: string, value: string) => {
+    setCustomerData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  // Submit order to database
+  const handleOrderSubmit = async () => {
+    if (!customerData.customer_name || !customerData.customer_email) {
+      alert('Please fill in required customer details');
+      return;
+    }
+
+    setOrderLoading(true);
+    
+    try {
+      const service = calculatorData.services.find(s => s.id === Number(formData.serviceId));
+      const academicLevel = calculatorData.academicLevels.find(al => al.id === Number(formData.academicLevelId));
+      const urgencyOption = calculatorData.urgencyOptions.find(uo => uo.id === Number(formData.urgencyId));
+      
+      // Calculate deadline date/time
+      const deadlineDate = new Date();
+      deadlineDate.setHours(deadlineDate.getHours() + (urgencyOption?.hours || 168));
+      
+      const orderData = {
+        customer_name: customerData.customer_name,
+        customer_email: customerData.customer_email,
+        customer_phone: customerData.customer_phone,
+        service_type: service?.name || '',
+        assignment_type: service?.name || '',
+        academic_level: academicLevel?.name || '',
+        pages: service?.unit_type === 'words' ? Math.ceil(Number(formData.units) / 250) : null,
+        words: service?.unit_type === 'words' ? Number(formData.units) : null,
+        deadline_date: deadlineDate.toISOString().split('T')[0],
+        deadline_time: deadlineDate.toTimeString().split(' ')[0],
+        subject: customerData.subject,
+        instructions: customerData.instructions || formData.projectDescription,
+        total_price: calculatedPrice,
+        currency: formData.currency
+      };
+
+      const response = await fetch('http://localhost/codescholarwriters-api/admin/create_order.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setOrderSuccess(`Order created successfully! Order ID: ${result.order_id}`);
+        setShowToast(true);
+        
+        // Show toast message
+        setTimeout(() => {
+          setShowToast(false);
+        }, 5000);
+        
+        // Reset forms
+        setShowOrderForm(false);
+        setCustomerData({
+          customer_name: '',
+          customer_email: '',
+          customer_phone: '',
+          subject: '',
+          instructions: ''
+        });
+        setFormData({
+          serviceId: '',
+          units: '',
+          urgencyId: '',
+          academicLevelId: '',
+          selectedAddon: '',
+          toolSelection: '',
+          projectDescription: '',
+          currency: 'INR'
+        });
+        setCalculatedPrice(0);
+        setSelectedService(null);
+      } else {
+        alert('Error creating order: ' + (result.error || 'Unknown error'));
+      }
+    } catch (error) {
+      alert('Error submitting order. Please try again.');
+      console.error('Order submission error:', error);
+    } finally {
+      setOrderLoading(false);
+    }
+  };
 
   // Handle form input changes
   const handleInputChange = (field: string, value: string | number) => {
@@ -551,14 +658,14 @@ const PriceCalculator = () => {
         </div>
 
         {/* Order/Quote Button - Show after price calculation */}
-        {calculatedPrice > 0 && (
+        {calculatedPrice > 0 && !showOrderForm && (
           <div className="space-y-3">
             <button
               type="button"
               className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg"
-              onClick={() => alert('Order functionality will be implemented soon!')}
+              onClick={() => setShowOrderForm(true)}
             >
-              Order Now - ₹{calculatedPrice.toLocaleString('en-IN')}
+              Order Now - {formData.currency === 'USD' ? '$' : '₹'}{calculatedPrice.toLocaleString('en-IN')}
             </button>
             <button
               type="button"
@@ -569,8 +676,134 @@ const PriceCalculator = () => {
             </button>
           </div>
         )}
+
+        {/* Customer Details Form */}
+        {showOrderForm && (
+          <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
+            <h4 className="text-lg font-semibold text-gray-900 mb-4">Customer Details</h4>
+            
+            {orderSuccess && (
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {orderSuccess}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  value={customerData.customer_name}
+                  onChange={(e) => handleCustomerInputChange('customer_name', e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  value={customerData.customer_email}
+                  onChange={(e) => handleCustomerInputChange('customer_email', e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  value={customerData.customer_phone}
+                  onChange={(e) => handleCustomerInputChange('customer_phone', e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Subject/Topic
+                </label>
+                <input
+                  type="text"
+                  value={customerData.subject}
+                  onChange={(e) => handleCustomerInputChange('subject', e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Assignment subject or topic"
+                />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Additional Instructions
+              </label>
+              <textarea
+                value={customerData.instructions}
+                onChange={(e) => handleCustomerInputChange('instructions', e.target.value)}
+                rows={3}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Any specific requirements or instructions for your order"
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={handleOrderSubmit}
+                disabled={orderLoading}
+                className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg disabled:opacity-50"
+              >
+                {orderLoading ? 'Placing Order...' : `Place Order - ${formData.currency === 'USD' ? '$' : '₹'}${calculatedPrice.toLocaleString('en-IN')}`}
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => setShowOrderForm(false)}
+                className="px-6 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-all duration-300"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </form>
       </div>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-24 right-4 z-[99999] max-w-sm">
+          <div className="bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl border-l-4 border-green-800 animate-slide-in backdrop-blur-sm border border-green-500">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div className="flex-1">
+                <p className="font-bold text-sm">Order Received!</p>
+                <p className="text-xs text-green-100 mt-1">We got your order. We will confirm you by email/phone number.</p>
+              </div>
+              <button
+                onClick={() => setShowToast(false)}
+                className="ml-3 text-green-200 hover:text-white transition-colors flex-shrink-0 bg-green-700 hover:bg-green-800 rounded-full p-1"
+              >
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

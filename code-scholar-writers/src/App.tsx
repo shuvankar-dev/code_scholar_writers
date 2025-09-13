@@ -13,6 +13,7 @@ import PricingPage from './pages/PricingPage'
 import AdminLogin from './components/admin/AdminLogin'
 import AdminRegister from './components/admin/AdminRegister'
 import AdminDashboard from './components/admin/AdminDashboard'
+import AdminOrders from './components/admin/AdminOrders'
 
 function App() {
   const [showCalculator, setShowCalculator] = useState(false)
@@ -38,6 +39,7 @@ function App() {
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/register" element={<AdminRegister />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
         </Routes>
         
         <Footer />

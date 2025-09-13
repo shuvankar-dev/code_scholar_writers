@@ -138,17 +138,6 @@ const AdminLogin = () => {
         
         </CardFooter>
       </Card>
-
-      {/* Test Credentials - Smaller Card */}
-      <div className="absolute bottom-6 left-6">
-        <Card className="bg-yellow-900/30 border-yellow-700/50 max-w-xs">
-          <CardContent className="p-4">
-            <p className="text-xs text-yellow-300 font-medium mb-2">Test Credentials:</p>
-            <p className="text-xs text-yellow-200">Username: <strong>admin</strong></p>
-            <p className="text-xs text-yellow-200">Password: <strong>admin123</strong></p>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 };
