@@ -54,6 +54,24 @@ interface CalculatorData {
   toolOptions: ToolOption[];
 }
 
+interface MasterPrices {
+  base: any[];
+  academic_level: any[];
+  urgency: any[];
+  addon: any[];
+  tool: any[];
+}
+
+interface DynamicPrices {
+  price_per_word: number;
+  data_analysis_base: number;
+  programming_base: number;
+  academic_multipliers: { [key: string]: number };
+  urgency_multipliers: { [key: string]: number };
+  addon_prices: { [key: string]: number };
+  tool_multipliers: { [key: string]: number };
+}
+
 const PriceCalculator = () => {
   // Form state
   const [formData, setFormData] = useState({
@@ -93,9 +111,79 @@ const PriceCalculator = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [dynamicPrices, setDynamicPrices] = useState<DynamicPrices | null>(null);
+  const [pricesLoading, setPricesLoading] = useState(true);
+
+  // Fetch master prices from database
+  const fetchMasterPrices = async () => {
+    try {
+      const response = await fetch('http://localhost/codescholarwriters-api/admin/get_prices.php');
+      const data = await response.json();
+
+      if (data.success) {
+        const prices = data.prices;
+        
+        // Transform the master prices into a usable format
+        const dynamicPricesData: DynamicPrices = {
+          price_per_word: 2.00, // default fallback
+          data_analysis_base: 5000.00,
+          programming_base: 10000.00,
+          academic_multipliers: {},
+          urgency_multipliers: {},
+          addon_prices: {},
+          tool_multipliers: {}
+        };
+
+        // Process base prices
+        prices.base?.forEach((price: any) => {
+          if (price.price_key === 'price_per_word') {
+            dynamicPricesData.price_per_word = parseFloat(price.price_value);
+          } else if (price.price_key === 'data_analysis_base') {
+            dynamicPricesData.data_analysis_base = parseFloat(price.price_value);
+          } else if (price.price_key === 'programming_base') {
+            dynamicPricesData.programming_base = parseFloat(price.price_value);
+          }
+        });
+
+        // Process academic level multipliers
+        prices.academic_level?.forEach((price: any) => {
+          dynamicPricesData.academic_multipliers[price.price_key] = parseFloat(price.price_value);
+        });
+
+        // Process urgency multipliers
+        prices.urgency?.forEach((price: any) => {
+          dynamicPricesData.urgency_multipliers[price.price_key] = parseFloat(price.price_value);
+        });
+
+        // Process addon prices
+        prices.addon?.forEach((price: any) => {
+          dynamicPricesData.addon_prices[price.price_key] = parseFloat(price.price_value);
+        });
+
+        // Process tool multipliers
+        prices.tool?.forEach((price: any) => {
+          dynamicPricesData.tool_multipliers[price.price_key] = parseFloat(price.price_value);
+        });
+
+        setDynamicPrices(dynamicPricesData);
+        console.log('Dynamic prices loaded:', dynamicPricesData);
+      } else {
+        console.error('Failed to fetch master prices:', data.error);
+        // Keep default hardcoded prices as fallback
+      }
+    } catch (error) {
+      console.error('Error fetching master prices:', error);
+      // Keep default hardcoded prices as fallback
+    } finally {
+      setPricesLoading(false);
+    }
+  };
 
   // Mock data for now (will replace with API calls)
   useEffect(() => {
+    // Fetch master prices from API
+    fetchMasterPrices();
+    
     // Simulate API data
     setCalculatorData({
       services: [
@@ -161,20 +249,20 @@ const PriceCalculator = () => {
         }
       ],
       urgencyOptions: [
-        { id: 1, name: '12 Hours', hours: 12, multiplier: 2.50 },
-        { id: 2, name: '24 Hours', hours: 24, multiplier: 2.00 },
-        { id: 3, name: '48 Hours', hours: 48, multiplier: 1.75 },
-        { id: 4, name: '3 Days', hours: 72, multiplier: 1.50 },
-        { id: 5, name: '5 Days', hours: 120, multiplier: 1.25 },
-        { id: 6, name: '7 Days', hours: 168, multiplier: 1.00 },
-        { id: 7, name: '14 Days', hours: 336, multiplier: 0.90 },
-        { id: 8, name: '30 Days', hours: 720, multiplier: 0.80 }
+        { id: 1, name: '12 Hours', hours: 12, multiplier: 2500 },
+        { id: 2, name: '24 Hours', hours: 24, multiplier: 2000 },
+        { id: 3, name: '48 Hours', hours: 48, multiplier: 1500 },
+        { id: 4, name: '3 Days', hours: 72, multiplier: 1000 },
+        { id: 5, name: '5 Days', hours: 120, multiplier: 500 },
+        { id: 6, name: '7 Days', hours: 168, multiplier: 0 },
+        { id: 7, name: '14 Days', hours: 336, multiplier: -500 },
+        { id: 8, name: '30 Days', hours: 720, multiplier: -1000 }
       ],
       academicLevels: [
-        { id: 1, name: 'High School', multiplier: 1.00 },
-        { id: 2, name: 'Undergraduate', multiplier: 1.25 },
-        { id: 3, name: 'Graduate/Masters', multiplier: 1.50 },
-        { id: 4, name: 'PhD/Doctorate', multiplier: 1.80 }
+        { id: 1, name: 'High School', multiplier: 0 },
+        { id: 2, name: 'Undergraduate', multiplier: 500 },
+        { id: 3, name: 'Graduate/Masters', multiplier: 1000 },
+        { id: 4, name: 'PhD/Doctorate', multiplier: 2000 }
       ],
       addons: [
         { id: 1, name: 'Plagiarism Report', price: 5.00, price_type: 'fixed' },
@@ -191,14 +279,14 @@ const PriceCalculator = () => {
         { code: 'USD', name: 'US Dollar', symbol: '$' }
       ],
       toolOptions: [
-        { id: 1, tool_name: 'Excel Analysis', price_multiplier: 1.00 },
-        { id: 2, tool_name: 'Power BI', price_multiplier: 1.25 },
-        { id: 3, tool_name: 'Tableau', price_multiplier: 1.30 },
-        { id: 4, tool_name: 'Python (Pandas/NumPy)', price_multiplier: 1.40 },
-        { id: 5, tool_name: 'R Statistical Analysis', price_multiplier: 1.35 },
-        { id: 6, tool_name: 'SPSS', price_multiplier: 1.20 },
-        { id: 7, tool_name: 'SAS', price_multiplier: 1.45 },
-        { id: 8, tool_name: 'Other Tools', price_multiplier: 1.15 }
+        { id: 1, tool_name: 'Excel Analysis', price_multiplier: 0 },
+        { id: 2, tool_name: 'Power BI', price_multiplier: 1000 },
+        { id: 3, tool_name: 'Tableau', price_multiplier: 1500 },
+        { id: 4, tool_name: 'Python (Pandas/NumPy)', price_multiplier: 2000 },
+        { id: 5, tool_name: 'R Statistical Analysis', price_multiplier: 1800 },
+        { id: 6, tool_name: 'SPSS', price_multiplier: 800 },
+        { id: 7, tool_name: 'SAS', price_multiplier: 2200 },
+        { id: 8, tool_name: 'Other Tools', price_multiplier: 500 }
       ]
     });
   }, []);
@@ -319,7 +407,7 @@ const PriceCalculator = () => {
 
   // Calculate price based on form data
   const calculatePrice = () => {
-    if (!formData.serviceId || !formData.academicLevelId || !formData.urgencyId) {
+    if (!formData.serviceId || !formData.academicLevelId || !formData.urgencyId || !dynamicPrices) {
       return;
     }
 
@@ -339,41 +427,50 @@ const PriceCalculator = () => {
         return;
       }
 
-      // Calculate base price based on service type
+      // Calculate base price based on service type using dynamic prices
       switch (service.unit_type) {
         case 'words':
           const wordCount = Number(formData.units) || 0;
-          basePrice = wordCount * 2; // ₹2 per word base rate
+          basePrice = wordCount * dynamicPrices.price_per_word; // Use dynamic price per word
           break;
-        case 'selection':
+        case 'tools':
           // For data analysis tools
-          const selectedTool = calculatorData.toolOptions.find(tool => tool.tool_name === formData.toolSelection);
-          basePrice = 5000 * (selectedTool?.price_multiplier || 1); // Base ₹5000 for data analysis
+          const selectedTool = calculatorData.toolOptions.find(tool => tool.id === Number(formData.toolSelection));
+          const toolKey = selectedTool?.tool_name.toLowerCase().replace(/[^a-z0-9]/g, '_') || 'excel_analysis';
+          const toolAddition = dynamicPrices.tool_multipliers[toolKey] || selectedTool?.price_multiplier || 0;
+          basePrice = dynamicPrices.data_analysis_base + toolAddition; // Use dynamic data analysis base price with addition
           break;
         case 'description':
-          // For programming projects - fixed base rate
-          basePrice = 10000; // Base ₹10000 for programming projects
+          // For programming projects - use dynamic programming base price
+          basePrice = dynamicPrices.programming_base;
           break;
         default:
           basePrice = 1000;
       }
 
-      // Apply academic level multiplier
-      basePrice *= academicLevel.multiplier;
+      // Apply academic level addition using dynamic prices
+      const academicKey = academicLevel.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      const academicAddition = dynamicPrices.academic_multipliers[academicKey] || academicLevel.multiplier;
+      basePrice += academicAddition;
 
-      // Apply urgency multiplier
-      basePrice *= urgencyOption.multiplier;
+      // Apply urgency addition using dynamic prices
+      const urgencyKey = urgencyOption.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      const urgencyAddition = dynamicPrices.urgency_multipliers[urgencyKey] || urgencyOption.multiplier;
+      basePrice += urgencyAddition;
 
-      // Add addon price if selected
+      // Add addon price if selected using dynamic prices
       if (formData.selectedAddon) {
         const addon = calculatorData.addons.find(a => a.id === Number(formData.selectedAddon));
         if (addon) {
+          const addonKey = addon.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+          const addonPrice = dynamicPrices.addon_prices[addonKey] || addon.price;
+          
           if (addon.price_type === 'fixed') {
-            basePrice += addon.price;
+            basePrice += addonPrice;
           } else if (addon.price_type === 'percentage') {
-            basePrice *= (1 + addon.price);
+            basePrice *= (1 + addonPrice / 100);
           } else if (addon.price_type === 'per_word' && service.unit_type === 'words') {
-            basePrice += addon.price * Number(formData.units);
+            basePrice += addonPrice * Number(formData.units);
           }
         }
       }
@@ -395,7 +492,7 @@ const PriceCalculator = () => {
       if (selectedService.unit_type === 'words' && !formData.units) {
         return false;
       }
-      if (selectedService.unit_type === 'selection' && !formData.toolSelection) {
+      if (selectedService.unit_type === 'tools' && !formData.toolSelection) {
         return false;
       }
       if (selectedService.unit_type === 'description' && !formData.projectDescription) {
@@ -445,7 +542,7 @@ const PriceCalculator = () => {
               <option value="">Select analysis tool</option>
               {calculatorData.toolOptions.map(tool => (
                 <option key={tool.id} value={tool.id}>
-                  {tool.tool_name} (×{tool.price_multiplier})
+                  {tool.tool_name} (+₹{tool.price_multiplier})
                 </option>
               ))}
             </select>
@@ -496,6 +593,14 @@ const PriceCalculator = () => {
       
       <p className="text-gray-600 mb-8">Get an instant quote for your academic writing needs</p>
 
+      {/* Loading State for Prices */}
+      {pricesLoading ? (
+        <div className="text-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading pricing information...</p>
+        </div>
+      ) : (
+
       <form className="space-y-8">
         {/* Service Selection */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -537,7 +642,7 @@ const PriceCalculator = () => {
             <option value="">Select academic level</option>
             {calculatorData.academicLevels.map(level => (
               <option key={level.id} value={level.id}>
-                {level.name} (×{level.multiplier})
+                {level.name} (+₹{level.multiplier})
               </option>
             ))}
           </select>
@@ -557,7 +662,7 @@ const PriceCalculator = () => {
             <option value="">Select deadline</option>
             {calculatorData.urgencyOptions.map(option => (
               <option key={option.id} value={option.id}>
-                {option.name} (×{option.multiplier})
+                {option.name} (+₹{option.multiplier})
               </option>
             ))}
           </select>
@@ -778,6 +883,7 @@ const PriceCalculator = () => {
           </div>
         )}
       </form>
+      )}
       </div>
 
       {/* Toast Notification */}

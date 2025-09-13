@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2025 at 04:35 PM
+-- Generation Time: Sep 13, 2025 at 05:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,6 +82,72 @@ INSERT INTO `addons` (`id`, `name`, `slug`, `description`, `price_type`, `price`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin_sessions`
+--
+
+CREATE TABLE `admin_sessions` (
+  `id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `session_token` varchar(255) NOT NULL,
+  `expires_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin_sessions`
+--
+
+INSERT INTO `admin_sessions` (`id`, `admin_id`, `session_token`, `expires_at`, `created_at`, `ip_address`, `user_agent`) VALUES
+(1, 2, '6595fd7e198bdd3c4dc7923a9b7205835fdd7f1eca316bb74c35e552e5decec6', '2025-09-14 03:47:44', '2025-09-13 07:17:44', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(2, 2, '61d2b08f36f58a30aad364ff8229f892f0403ed18523f1baa4e5ecdec879b10b', '2025-09-14 04:22:13', '2025-09-13 07:52:13', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(3, 3, 'a5aebdd0866598cd908ae13bacb629b4367f9361379ab89579accb60f57aa552', '2025-09-14 04:30:14', '2025-09-13 08:00:14', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(4, 3, '97a7bcf8a40bedf77df885b0b7d328bde885b081e1490f10f7f2092781ad86c0', '2025-09-14 04:40:47', '2025-09-13 08:10:47', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(5, 3, '4e460433aa05de6243b6088c4e3cebc1beb545812d18bc289f9fffac7e63873c', '2025-09-14 04:51:55', '2025-09-13 08:21:55', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(6, 3, '4e0a48a86db56c1aa182ffe548fbeda53821396baff811ee7889f54bfdfbaaed', '2025-09-14 05:18:04', '2025-09-13 08:48:04', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(7, 3, 'e6467b961062f94ba38288a12173545c92f0755cba45d9910cfbedc3faba8526', '2025-09-14 05:28:58', '2025-09-13 08:58:58', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(8, 3, '332aba3587023e83405a27a0ead94cd44b67a7870b9e60410fb7ff8c121bb79f', '2025-09-14 05:29:04', '2025-09-13 08:59:04', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(9, 3, 'bafac6f855141ee03a8dc0144de92b615b5ba30ef78c9a4b94e5b61e48e7298d', '2025-09-14 05:51:01', '2025-09-13 09:21:01', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(10, 3, 'bd5ab4986357974ef04f3c3c4776b039e78bb09282ee79817b482ba964644dca', '2025-09-14 05:58:42', '2025-09-13 09:28:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(11, 3, '5353db0d8eb867f913cdb51ad54a22891e0e2f0f670d948a5383706665ecacca', '2025-09-14 06:00:41', '2025-09-13 09:30:41', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(12, 3, '821edb873f14489940305c2a237ca95845d550fa0b31dea645feea26b3c3e036', '2025-09-14 06:01:20', '2025-09-13 09:31:20', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(13, 3, '0787f5df1e36ac01554f58c0b7edc6ce59f25d315d5f23ffee7c273f22443a19', '2025-09-14 06:02:05', '2025-09-13 09:32:05', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(14, 3, '34c56f6c6dcccbef34a518e2193e40a9376e88ffc279defc01a6b13650cb8c70', '2025-09-14 06:08:22', '2025-09-13 09:38:22', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(15, 3, 'fea20bc444eec180262e7e1899beb3ab9056bc121a85832193c9949277f25004', '2025-09-14 10:11:10', '2025-09-13 13:41:10', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0'),
+(16, 3, '0516d5edcc93573aafa9d58d04f66296051471fe5c4ffc70801b2bbde7daa4f4', '2025-09-14 11:25:42', '2025-09-13 14:55:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_users`
+--
+
+CREATE TABLE `admin_users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `role` enum('super_admin','admin','moderator') DEFAULT 'admin',
+  `is_active` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_login` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin_users`
+--
+
+INSERT INTO `admin_users` (`id`, `username`, `email`, `password`, `full_name`, `role`, `is_active`, `created_at`, `updated_at`, `last_login`) VALUES
+(1, 'admin', 'admin@codescholarwriters.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'System Administrator', 'super_admin', 1, '2025-09-13 07:11:20', '2025-09-13 07:11:20', NULL),
+(2, 'Shuvankar-Dev', 'shuvankar.dev01@gmail.com', '$2y$10$1E/lfc9R5YBBAVd/SwWiH.jEQ/N6Hn8ChvQJdCr5f3tZepaRnQcEG', 'exampl', 'admin', 1, '2025-09-13 07:17:15', '2025-09-13 07:52:13', '2025-09-13 07:52:13'),
+(3, 'Shuvankar-Dev2', 'shuvankar.dev02@gmail.com', '$2y$10$.kYnQ.RFdSfcGd/Kn0OxiOSaQOg3cagJvidsYQvZEGsbPb./fnI2y', 'Shuvankar Das', 'admin', 1, '2025-09-13 07:59:51', '2025-09-13 14:55:42', '2025-09-13 14:55:42');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `currencies`
 --
 
@@ -110,29 +176,100 @@ INSERT INTO `currencies` (`id`, `code`, `name`, `symbol`, `exchange_rate`, `is_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `price_calculations`
+-- Table structure for table `master_prices`
 --
 
-CREATE TABLE `price_calculations` (
+CREATE TABLE `master_prices` (
   `id` int(11) NOT NULL,
-  `service_id` int(11) DEFAULT NULL,
-  `academic_level_id` int(11) DEFAULT NULL,
-  `urgency_id` int(11) DEFAULT NULL,
-  `units` int(11) DEFAULT NULL,
-  `unit_type` varchar(20) DEFAULT NULL,
-  `tool_selected` varchar(100) DEFAULT NULL,
-  `project_description` text DEFAULT NULL,
-  `base_price` decimal(10,2) DEFAULT NULL,
-  `urgency_multiplier` decimal(4,2) DEFAULT NULL,
-  `level_multiplier` decimal(4,2) DEFAULT NULL,
-  `tool_multiplier` decimal(4,2) DEFAULT 1.00,
-  `addons_total` decimal(10,2) DEFAULT NULL,
-  `final_price` decimal(10,2) DEFAULT NULL,
-  `currency_code` varchar(3) DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `price_type` varchar(50) NOT NULL,
+  `price_key` varchar(100) NOT NULL,
+  `price_value` decimal(10,2) NOT NULL,
+  `currency` varchar(10) DEFAULT 'INR',
+  `description` text DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `master_prices`
+--
+
+INSERT INTO `master_prices` (`id`, `price_type`, `price_key`, `price_value`, `currency`, `description`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'base', 'price_per_word', 2.00, 'INR', 'Base price per word for writing services', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(2, 'base', 'data_analysis_base', 2000.00, 'INR', 'Base price for data analysis projects', 1, '2025-09-13 13:54:19', '2025-09-13 15:02:49'),
+(3, 'base', 'programming_base', 10000.00, 'INR', 'Base price for programming projects', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(4, 'academic_level', 'high_school', 1.00, 'INR', 'High School level multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(5, 'academic_level', 'undergraduate', 1.25, 'INR', 'Undergraduate level multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(6, 'academic_level', 'graduate', 1.50, 'INR', 'Graduate/Masters level multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(7, 'academic_level', 'phd', 1.80, 'INR', 'PhD/Doctorate level multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(8, 'urgency', '30_days', 0.80, 'INR', '30+ days urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(9, 'urgency', '14_days', 0.90, 'INR', '14-29 days urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(10, 'urgency', '7_days', 1.00, 'INR', '7-13 days urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(11, 'urgency', '5_days', 1.25, 'INR', '5-6 days urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(12, 'urgency', '3_days', 1.50, 'INR', '3-4 days urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(13, 'urgency', '2_days', 1.75, 'INR', '2 days urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(14, 'urgency', '1_day', 2.00, 'INR', '24 hours urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(15, 'urgency', '12_hours', 2.50, 'INR', '12 hours urgency multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(16, 'addon', 'plagiarism_report', 500.00, 'INR', 'Plagiarism report add-on price', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(17, 'addon', 'grammarly_check', 10.00, 'INR', 'Grammarly check per word', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(18, 'addon', 'turnitin_report', 1000.00, 'INR', 'Turnitin report add-on price', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(19, 'addon', 'additional_references', 800.00, 'INR', 'Additional references add-on price', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(20, 'addon', 'charts_graphs', 1500.00, 'INR', 'Charts and graphs add-on price', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(21, 'addon', 'expedited_delivery', 25.00, 'INR', 'Expedited delivery percentage', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(22, 'addon', 'multiple_drafts', 1200.00, 'INR', 'Multiple drafts add-on price', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(23, 'addon', 'powerpoint_slides', 2000.00, 'INR', 'PowerPoint slides add-on price', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(24, 'tool', 'excel_analysis', 1.00, 'INR', 'Excel Analysis tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(25, 'tool', 'power_bi', 1.25, 'INR', 'Power BI tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(26, 'tool', 'tableau', 1.30, 'INR', 'Tableau tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(27, 'tool', 'python_pandas', 1.40, 'INR', 'Python (Pandas/NumPy) tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(28, 'tool', 'r_statistical', 1.35, 'INR', 'R Statistical Analysis tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(29, 'tool', 'spss', 1.20, 'INR', 'SPSS tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(30, 'tool', 'sas', 1.45, 'INR', 'SAS tool multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19'),
+(31, 'tool', 'other_tools', 1.15, 'INR', 'Other Tools multiplier', 1, '2025-09-13 13:54:19', '2025-09-13 13:54:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `order_id` varchar(50) NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `customer_phone` varchar(20) DEFAULT NULL,
+  `service_type` varchar(100) NOT NULL,
+  `assignment_type` varchar(100) DEFAULT NULL,
+  `academic_level` varchar(50) DEFAULT NULL,
+  `pages` int(11) DEFAULT NULL,
+  `words` int(11) DEFAULT NULL,
+  `deadline_date` date DEFAULT NULL,
+  `deadline_time` time DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `instructions` text DEFAULT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `currency` varchar(10) DEFAULT 'USD',
+  `status` enum('pending','confirmed','in_progress','completed','cancelled') DEFAULT 'pending',
+  `payment_status` enum('unpaid','paid','refunded') DEFAULT 'unpaid',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `customer_name`, `customer_email`, `customer_phone`, `service_type`, `assignment_type`, `academic_level`, `pages`, `words`, `deadline_date`, `deadline_time`, `subject`, `instructions`, `total_price`, `currency`, `status`, `payment_status`, `created_at`, `updated_at`) VALUES
+(1, 'ORD-20250913-7ABBAE', 'Shuvankar Das', 'shuvankardas.2910@gmail.com', '7630955747', 'Assignment Help', 'Assignment Help', 'High School', 4, 1000, '2025-09-14', '14:17:51', 'PhD', 'I want 90%+ Marks', 4005.00, 'INR', 'confirmed', 'unpaid', '2025-09-13 08:47:51', '2025-09-13 09:12:51'),
+(2, 'ORD-20250913-4372C0', 'Shuvankar Das', 'shuvankardas.2910@gmail.com', '07630955747', 'Assignment Help', 'Assignment Help', 'High School', 4, 1000, '2025-09-13', '02:19:24', 'assdf', 'asdf', 5005.00, 'INR', 'in_progress', 'unpaid', '2025-09-13 08:49:24', '2025-09-13 09:12:46'),
+(3, 'ORD-20250913-038B56', 'Shuvankar Das', 'shuvankardas.2910@gmail.com', '123456789', 'Essay Writing', 'Essay Writing', 'High School', 4, 1000, '2025-09-13', '02:28:08', 'qwer', 'asdf asef', 5005.00, 'INR', 'completed', 'refunded', '2025-09-13 08:58:08', '2025-09-13 09:13:08'),
+(4, 'ORD-20250913-D6CFE7', 'exampl', 'example.@gmail.com', '123456789', 'Report Writing', 'Report Writing', 'Undergraduate', 4, 1000, '2025-09-14', '14:41:25', 'asdf', 'qwer asdf', 5005.00, 'INR', 'pending', 'paid', '2025-09-13 09:11:25', '2025-09-13 09:13:10'),
+(5, 'ORD-20250913-7BF632', 'Shuvankar Dev', 'shuvankar.dev01@gmail.com', '1234567890', 'Assignment Help', 'Assignment Help', 'High School', 21, 5200, '2025-09-13', '02:42:07', 'LAW', 'asdf asdf', 26052.00, 'INR', 'cancelled', 'unpaid', '2025-09-13 09:12:07', '2025-09-13 09:13:00'),
+(6, 'ORD-20250913-E98475', 'Shuvankar Dev', 'shuvankar.dev01@gmail.com', '1234567890', 'Assignment Help', 'Assignment Help', 'Undergraduate', 36, 9000, '2025-09-15', '14:51:50', 'LAW', 'asdf', 39465.00, 'INR', 'pending', 'unpaid', '2025-09-13 09:21:50', '2025-09-13 09:21:50'),
+(7, 'ORD-20250913-C618CA', 'Shuvankar Dev', 'shuvankar.dev01@gmail.com', '123456789', 'Assignment Help', 'Assignment Help', 'High School', 20, 5000, '2025-09-14', '14:55:48', 'qwer', 'qwer wqwwe ', 20050.00, 'INR', 'pending', 'unpaid', '2025-09-13 09:25:48', '2025-09-13 09:25:48'),
+(8, 'ORD-20250913-8A1483', 'Shuvankar Das', 'shuvankardas.2910@gmail.com', '07630955747', 'Assignment Help', 'Assignment Help', 'High School', 5, 1200, '2025-09-13', '03:07:44', 'LAW', 'asdf asdf asdf ', 6012.00, 'INR', 'cancelled', 'refunded', '2025-09-13 09:37:44', '2025-09-13 09:39:24');
 
 -- --------------------------------------------------------
 
@@ -172,104 +309,6 @@ INSERT INTO `services` (`id`, `name`, `slug`, `description`, `base_rate`, `unit_
 (7, 'Dissertation Writing', 'dissertation-writing', 'Complete dissertation support', 0.08, 'words', 'Total Word Count', 12500, 250000, 250, 0, 0, 1, '2025-08-29 08:01:44', '2025-08-29 08:01:44'),
 (8, 'Thesis Writing', 'thesis-writing', 'Professional thesis writing services', 0.07, 'words', 'Total Word Count', 2500, 125000, 250, 0, 0, 1, '2025-08-29 08:01:44', '2025-08-29 08:01:44');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `service_level_pricing`
---
-
-CREATE TABLE `service_level_pricing` (
-  `id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `academic_level_id` int(11) NOT NULL,
-  `base_rate` decimal(10,2) NOT NULL,
-  `unit_type` enum('words','pages','hours','fixed') NOT NULL DEFAULT 'pages',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `service_level_pricing`
---
-
-INSERT INTO `service_level_pricing` (`id`, `service_id`, `academic_level_id`, `base_rate`, `unit_type`, `created_at`) VALUES
-(1, 1, 1, 0.05, 'words', '2025-08-29 08:01:44'),
-(2, 1, 2, 0.06, 'words', '2025-08-29 08:01:44'),
-(3, 1, 3, 0.07, 'words', '2025-08-29 08:01:44'),
-(4, 1, 4, 0.09, 'words', '2025-08-29 08:01:44'),
-(5, 2, 1, 0.05, 'words', '2025-08-29 08:01:44'),
-(6, 2, 2, 0.06, 'words', '2025-08-29 08:01:44'),
-(7, 2, 3, 0.07, 'words', '2025-08-29 08:01:44'),
-(8, 2, 4, 0.09, 'words', '2025-08-29 08:01:44'),
-(9, 5, 1, 20.00, 'fixed', '2025-08-29 08:01:44'),
-(10, 5, 2, 25.00, 'fixed', '2025-08-29 08:01:44'),
-(11, 5, 3, 30.00, 'fixed', '2025-08-29 08:01:44'),
-(12, 5, 4, 40.00, 'fixed', '2025-08-29 08:01:44'),
-(13, 6, 1, 25.00, 'fixed', '2025-08-29 08:01:44'),
-(14, 6, 2, 30.00, 'fixed', '2025-08-29 08:01:44'),
-(15, 6, 3, 40.00, 'fixed', '2025-08-29 08:01:44'),
-(16, 6, 4, 55.00, 'fixed', '2025-08-29 08:01:44');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `service_tool_options`
---
-
-CREATE TABLE `service_tool_options` (
-  `id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `tool_name` varchar(100) NOT NULL,
-  `tool_slug` varchar(50) NOT NULL,
-  `price_multiplier` decimal(4,2) DEFAULT 1.00,
-  `is_active` tinyint(1) DEFAULT 1,
-  `sort_order` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `service_tool_options`
---
-
-INSERT INTO `service_tool_options` (`id`, `service_id`, `tool_name`, `tool_slug`, `price_multiplier`, `is_active`, `sort_order`) VALUES
-(1, 5, 'Excel Analysis', 'excel', 1.00, 1, 1),
-(2, 5, 'Power BI', 'power-bi', 1.25, 1, 2),
-(3, 5, 'Tableau', 'tableau', 1.30, 1, 3),
-(4, 5, 'Python (Pandas/NumPy)', 'python', 1.40, 1, 4),
-(5, 5, 'R Statistical Analysis', 'r-stats', 1.35, 1, 5),
-(6, 5, 'SPSS', 'spss', 1.20, 1, 6),
-(7, 5, 'SAS', 'sas', 1.45, 1, 7),
-(8, 5, 'Other Tools', 'other', 1.15, 1, 8);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `urgency_options`
---
-
-CREATE TABLE `urgency_options` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `hours` int(11) NOT NULL,
-  `days` decimal(3,1) NOT NULL,
-  `multiplier` decimal(4,2) NOT NULL DEFAULT 1.00,
-  `sort_order` int(11) DEFAULT 0,
-  `is_active` tinyint(1) DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `urgency_options`
---
-
-INSERT INTO `urgency_options` (`id`, `name`, `hours`, `days`, `multiplier`, `sort_order`, `is_active`, `created_at`) VALUES
-(1, '12 Hours', 12, 0.5, 2.50, 1, 1, '2025-08-29 08:01:44'),
-(2, '24 Hours', 24, 1.0, 2.00, 2, 1, '2025-08-29 08:01:44'),
-(3, '48 Hours', 48, 2.0, 1.75, 3, 1, '2025-08-29 08:01:44'),
-(4, '3 Days', 72, 3.0, 1.50, 4, 1, '2025-08-29 08:01:44'),
-(5, '5 Days', 120, 5.0, 1.25, 5, 1, '2025-08-29 08:01:44'),
-(6, '7 Days', 168, 7.0, 1.00, 6, 1, '2025-08-29 08:01:44'),
-(7, '14 Days', 336, 14.0, 0.90, 7, 1, '2025-08-29 08:01:44'),
-(8, '30 Days', 720, 30.0, 0.80, 8, 1, '2025-08-29 08:01:44');
-
 --
 -- Indexes for dumped tables
 --
@@ -291,6 +330,26 @@ ALTER TABLE `addons`
   ADD KEY `idx_addons_active` (`is_active`);
 
 --
+-- Indexes for table `admin_sessions`
+--
+ALTER TABLE `admin_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `idx_session_token` (`session_token`),
+  ADD KEY `idx_expires_at` (`expires_at`);
+
+--
+-- Indexes for table `admin_users`
+--
+ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `idx_username` (`username`),
+  ADD KEY `idx_email` (`email`),
+  ADD KEY `idx_is_active` (`is_active`);
+
+--
 -- Indexes for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -299,14 +358,18 @@ ALTER TABLE `currencies`
   ADD KEY `idx_currencies_active` (`is_active`);
 
 --
--- Indexes for table `price_calculations`
+-- Indexes for table `master_prices`
 --
-ALTER TABLE `price_calculations`
+ALTER TABLE `master_prices`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `service_id` (`service_id`),
-  ADD KEY `academic_level_id` (`academic_level_id`),
-  ADD KEY `urgency_id` (`urgency_id`),
-  ADD KEY `idx_price_calc_date` (`created_at`);
+  ADD UNIQUE KEY `unique_price_key` (`price_key`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `services`
@@ -316,28 +379,6 @@ ALTER TABLE `services`
   ADD UNIQUE KEY `slug` (`slug`),
   ADD KEY `idx_services_active` (`is_active`),
   ADD KEY `idx_services_unit_type` (`unit_type`);
-
---
--- Indexes for table `service_level_pricing`
---
-ALTER TABLE `service_level_pricing`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_service_level` (`service_id`,`academic_level_id`),
-  ADD KEY `academic_level_id` (`academic_level_id`);
-
---
--- Indexes for table `service_tool_options`
---
-ALTER TABLE `service_tool_options`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_tool_options_service` (`service_id`);
-
---
--- Indexes for table `urgency_options`
---
-ALTER TABLE `urgency_options`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_urgency_active` (`is_active`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -356,16 +397,34 @@ ALTER TABLE `addons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `admin_sessions`
+--
+ALTER TABLE `admin_sessions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `admin_users`
+--
+ALTER TABLE `admin_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `price_calculations`
+-- AUTO_INCREMENT for table `master_prices`
 --
-ALTER TABLE `price_calculations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `master_prices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -374,47 +433,14 @@ ALTER TABLE `services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `service_level_pricing`
---
-ALTER TABLE `service_level_pricing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `service_tool_options`
---
-ALTER TABLE `service_tool_options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `urgency_options`
---
-ALTER TABLE `urgency_options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `price_calculations`
+-- Constraints for table `admin_sessions`
 --
-ALTER TABLE `price_calculations`
-  ADD CONSTRAINT `price_calculations_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`),
-  ADD CONSTRAINT `price_calculations_ibfk_2` FOREIGN KEY (`academic_level_id`) REFERENCES `academic_levels` (`id`),
-  ADD CONSTRAINT `price_calculations_ibfk_3` FOREIGN KEY (`urgency_id`) REFERENCES `urgency_options` (`id`);
-
---
--- Constraints for table `service_level_pricing`
---
-ALTER TABLE `service_level_pricing`
-  ADD CONSTRAINT `service_level_pricing_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `service_level_pricing_ibfk_2` FOREIGN KEY (`academic_level_id`) REFERENCES `academic_levels` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `service_tool_options`
---
-ALTER TABLE `service_tool_options`
-  ADD CONSTRAINT `service_tool_options_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE;
+ALTER TABLE `admin_sessions`
+  ADD CONSTRAINT `admin_sessions_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin_users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
