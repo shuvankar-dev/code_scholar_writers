@@ -25,23 +25,24 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
     { name: "Services", href: "/services" },
     { name: "Pricing", href: "/pricing" },
     { name: "FAQ", href: "/faq" },
+    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "#contact" },
   ];
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-md border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex items-center h-16" style={{ justifyContent: 'space-between' }}>
+          {/* Logo - using available left space */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <img src={logo} alt="Code Scholar Writers" className="h-45 w-45" />
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+          {/* Desktop Navigation - centered with good spacing */}
+          <div className="hidden md:block flex-1">
+            <div className="flex items-baseline justify-center space-x-6">
               {navItems.map((item) => (
                 item.href.startsWith('#') ? (
                   <a
@@ -64,8 +65,8 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* CTA Buttons - using available right space */}
+          <div className="hidden md:flex items-center gap-4 flex-shrink-0">
             <button 
               onClick={onCalculatePrice}
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
