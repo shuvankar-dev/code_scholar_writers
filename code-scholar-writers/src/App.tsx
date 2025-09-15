@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
 import PricingPage from './pages/PricingPage'
+import FAQPage from './pages/FAQPage'
 
 // Admin Components
 import AdminLogin from './components/admin/AdminLogin'
@@ -15,6 +16,7 @@ import AdminRegister from './components/admin/AdminRegister'
 import AdminDashboard from './components/admin/AdminDashboard'
 import AdminOrders from './components/admin/AdminOrders'
 import AdminMasterPrice from './components/admin/AdminMasterPrice'
+import AdminFAQManagement from './components/admin/AdminFAQManagement'
 
 function App() {
   const [showCalculator, setShowCalculator] = useState(false)
@@ -34,6 +36,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/faq" element={<FAQPage />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminLogin />} />
@@ -42,6 +45,7 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/orders" element={<AdminOrders />} />
           <Route path="/admin/master-price" element={<AdminMasterPrice />} />
+          <Route path="/admin/faq" element={<AdminFAQManagement />} />
         </Routes>
         
         <Footer />

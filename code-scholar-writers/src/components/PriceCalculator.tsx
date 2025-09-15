@@ -54,14 +54,6 @@ interface CalculatorData {
   toolOptions: ToolOption[];
 }
 
-interface MasterPrices {
-  base: any[];
-  academic_level: any[];
-  urgency: any[];
-  addon: any[];
-  tool: any[];
-}
-
 interface DynamicPrices {
   price_per_word: number;
   data_analysis_base: number;

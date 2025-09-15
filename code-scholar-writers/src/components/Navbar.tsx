@@ -24,6 +24,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Pricing", href: "/pricing" },
+    { name: "FAQ", href: "/faq" },
     { name: "Contact", href: "#contact" },
   ];
 
