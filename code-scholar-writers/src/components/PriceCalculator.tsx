@@ -881,7 +881,7 @@ const PriceCalculator = () => {
       {/* Toast Notification */}
       {showToast && (
         <div className="fixed top-24 right-4 z-[99999] max-w-sm">
-          <div className="bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl border-l-4 border-green-800 animate-slide-in backdrop-blur-sm border border-green-500">
+          <div className="bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl border-l-4 border-green-800 animate-slide-in backdrop-blur-sm">
             <div className="flex items-center">
               <svg className="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -15,7 +15,8 @@ const AdminDashboard = () => {
     total: 0,
     pending: 0,
     samples: 18,
-    masterPrice: 0
+    masterPrice: 0,
+    faqCount: 0
   });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -41,23 +42,30 @@ const AdminDashboard = () => {
 
   const fetchOrderStats = async () => {
     try {
+      // Fetch orders
       const response = await fetch('http://localhost/codescholarwriters-api/admin/get_orders.php');
       const data = await response.json();
+
+      // Fetch FAQ count
+      const faqResponse = await fetch('http://localhost/codescholarwriters-api/get_faqs.php?admin=true');
+      const faqData = await faqResponse.json();
 
       if (data.success) {
         const orders = data.orders;
         const total = orders.length;
         const pending = orders.filter((order: any) => order.status === 'pending').length;
+        const faqCount = faqData.success ? (faqData.faqs?.length || 0) : 0;
 
         setOrderStats({
           total,
           pending,
           samples: 18, // Mock data for now
-          masterPrice: 0 // Default master price value
+          masterPrice: 0, // Default master price value
+          faqCount
         });
       }
     } catch (error) {
-      console.error('Error fetching order stats:', error);
+      console.error('Error fetching stats:', error);
     } finally {
       setLoading(false);
     }
@@ -176,8 +184,8 @@ const AdminDashboard = () => {
           <p className="text-gray-400">Welcome back, {user.full_name}</p>
         </div>
 
-        {/* Three Main Boxes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Four Main Boxes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Orders Box */}
           <div 
             className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:bg-gray-750 transition-colors cursor-pointer"
@@ -218,6 +226,29 @@ const AdminDashboard = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span className="text-sm">6 urgent requests</span>
+            </div>
+          </div>
+
+          {/* FAQ Management Box */}
+          <div 
+            className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:bg-gray-750 transition-colors cursor-pointer"
+            onClick={() => navigate('/admin/faq')}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <span className="text-2xl font-bold text-white">{orderStats.faqCount || 0}</span>
+            </div>
+            <h3 className="text-lg font-semibold text-white mb-2">FAQ Management</h3>
+            <p className="text-gray-400 text-sm">Manage frequently asked questions</p>
+            <div className="mt-4 flex items-center text-orange-400">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              <span className="text-sm">Click to manage FAQs</span>
             </div>
           </div>
 
