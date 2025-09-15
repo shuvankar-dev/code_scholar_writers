@@ -174,7 +174,7 @@ const AdminMasterPrice = () => {
         },
         credentials: 'include', // Include cookies for session
         body: JSON.stringify({
-          action: 'update_multiple',
+          action: 'update_all',
           prices: priceUpdates
         }),
       });
@@ -370,22 +370,6 @@ const AdminMasterPrice = () => {
             </Card>
           ))}
         </div>
-
-        {/* Summary Card */}
-        <Card className="bg-gray-800 border-gray-700 p-6 mt-8">
-          <h3 className="text-lg font-bold text-white mb-4">Price Configuration Summary</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {Object.entries(prices).map(([type, priceList]) => (
-              <div key={type} className="text-center">
-                <div className="flex justify-center mb-2 p-2 bg-gray-700 rounded-lg w-12 h-12 mx-auto items-center">
-                  {getPriceTypeIcon(type)}
-                </div>
-                <p className="text-white font-medium">{priceList.length}</p>
-                <p className="text-gray-400 text-sm">{getPriceTypeTitle(type)}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
       </div>
 
       {/* Toast Notification */}
