@@ -88,7 +88,6 @@ const PriceCalculator = () => {
 
   // File upload state
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [fileUploadProgress, setFileUploadProgress] = useState<{[key: string]: number}>({});
 
   // Data from API (will be fetched later)
   const [calculatorData, setCalculatorData] = useState<CalculatorData>({
@@ -381,7 +380,7 @@ const PriceCalculator = () => {
       formDataToSend.append('order_data', JSON.stringify(orderData));
       
       // Add files
-      uploadedFiles.forEach((file, index) => {
+      uploadedFiles.forEach((file) => {
         formDataToSend.append(`files[]`, file);
       });
 
@@ -404,7 +403,6 @@ const PriceCalculator = () => {
         // Reset forms and files
         setShowOrderForm(false);
         setUploadedFiles([]);
-        setFileUploadProgress({});
         setCustomerData({
           customer_name: '',
           customer_email: '',
