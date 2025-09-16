@@ -86,6 +86,10 @@ const PriceCalculator = () => {
     instructions: ''
   });
 
+  // File upload state
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [fileUploadProgress, setFileUploadProgress] = useState<{[key: string]: number}>({});
+
   // Data from API (will be fetched later)
   const [calculatorData, setCalculatorData] = useState<CalculatorData>({
     services: [],
@@ -291,6 +295,52 @@ const PriceCalculator = () => {
     }));
   };
 
+  // Handle file upload
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'text/csv',
+      'text/plain',
+      'image/jpeg',
+      'image/png',
+      'image/gif'
+    ];
+
+    const validFiles = files.filter(file => {
+      if (!allowedTypes.includes(file.type)) {
+        alert(`File type not supported: ${file.name}`);
+        return false;
+      }
+      if (file.size > 10 * 1024 * 1024) { // 10MB limit
+        alert(`File too large: ${file.name}. Maximum size is 10MB.`);
+        return false;
+      }
+      return true;
+    });
+
+    setUploadedFiles(prev => [...prev, ...validFiles]);
+  };
+
+  // Remove uploaded file
+  const removeFile = (index: number) => {
+    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Get file icon based on type
+  const getFileIcon = (file: File) => {
+    if (file.type.includes('pdf')) return '📄';
+    if (file.type.includes('word')) return '📝';
+    if (file.type.includes('excel') || file.type.includes('sheet')) return '📊';
+    if (file.type.includes('csv')) return '📋';
+    if (file.type.includes('image')) return '🖼️';
+    return '📎';
+  };
+
   // Submit order to database
   const handleOrderSubmit = async () => {
     if (!customerData.customer_name || !customerData.customer_email) {
@@ -326,18 +376,24 @@ const PriceCalculator = () => {
         currency: formData.currency
       };
 
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/create_order.php', {
+      // Create FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('order_data', JSON.stringify(orderData));
+      
+      // Add files
+      uploadedFiles.forEach((file, index) => {
+        formDataToSend.append(`files[]`, file);
+      });
+
+      const response = await fetch('http://localhost/codescholarwriters-api/admin/create_order_with_files.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
+        body: formDataToSend, // Don't set Content-Type header for FormData
       });
 
       const result = await response.json();
 
       if (result.success) {
-        setOrderSuccess(`Order created successfully! Order ID: ${result.order_id}`);
+        setOrderSuccess(`Order created successfully! Order ID: ${result.order_id}${uploadedFiles.length > 0 ? `. ${uploadedFiles.length} file(s) uploaded.` : ''}`);
         setShowToast(true);
         
         // Show toast message
@@ -345,8 +401,10 @@ const PriceCalculator = () => {
           setShowToast(false);
         }, 5000);
         
-        // Reset forms
+        // Reset forms and files
         setShowOrderForm(false);
+        setUploadedFiles([]);
+        setFileUploadProgress({});
         setCustomerData({
           customer_name: '',
           customer_email: '',
@@ -852,6 +910,65 @@ const PriceCalculator = () => {
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Any specific requirements or instructions for your order"
               />
+            </div>
+
+            {/* File Upload Section */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Attach Files (Optional)
+              </label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                <input
+                  type="file"
+                  multiple
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  id="file-upload"
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.gif"
+                />
+                <label htmlFor="file-upload" className="cursor-pointer">
+                  <div className="flex flex-col items-center">
+                    <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <span className="text-sm text-gray-600 font-medium">Click to upload files</span>
+                    <span className="text-xs text-gray-500 mt-1">
+                      Support: PDF, Word, Excel, CSV, Images (Max 10MB each)
+                    </span>
+                  </div>
+                </label>
+              </div>
+              
+              {/* Uploaded Files List */}
+              {uploadedFiles.length > 0 && (
+                <div className="mt-4">
+                  <h5 className="text-sm font-medium text-gray-700 mb-2">Uploaded Files:</h5>
+                  <div className="space-y-2">
+                    {uploadedFiles.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                        <div className="flex items-center">
+                          <span className="text-lg mr-2">{getFileIcon(file)}</span>
+                          <div>
+                            <span className="text-sm font-medium text-gray-900">{file.name}</span>
+                            <span className="text-xs text-gray-500 ml-2">
+                              ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeFile(index)}
+                          className="text-red-500 hover:text-red-700 p-1"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex gap-3">

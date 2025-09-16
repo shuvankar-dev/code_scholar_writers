@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Download, FileText } from 'lucide-react';
 
 interface Order {
   id: number;
@@ -30,9 +31,53 @@ const AdminOrders = () => {
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [updateLoading, setUpdateLoading] = useState<string | null>(null);
+  const [orderFiles, setOrderFiles] = useState<{[orderId: string]: any[]}>({});
+  const [loadingFiles, setLoadingFiles] = useState<{[orderId: string]: boolean}>({});
   const navigate = useNavigate();
 
   // Check if user is logged in
+  const fetchOrderFiles = async (orderId: string) => {
+    if (orderFiles[orderId] || loadingFiles[orderId]) return;
+    
+    setLoadingFiles(prev => ({ ...prev, [orderId]: true }));
+    
+    try {
+      const response = await fetch(`http://localhost/codescholarwriters-api/admin/get_order_files.php?order_id=${orderId}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setOrderFiles(prev => ({ ...prev, [orderId]: data.files }));
+      }
+    } catch (error) {
+      console.error('Error fetching order files:', error);
+    } finally {
+      setLoadingFiles(prev => ({ ...prev, [orderId]: false }));
+    }
+  };
+
+  const downloadFile = async (fileId: string, filename: string) => {
+    try {
+      const response = await fetch(`http://localhost/codescholarwriters-api/admin/download_file.php?file_id=${fileId}`);
+      
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        alert('Failed to download file');
+      }
+    } catch (error) {
+      console.error('Error downloading file:', error);
+      alert('Error downloading file');
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
@@ -53,6 +98,10 @@ const AdminOrders = () => {
 
       if (data.success) {
         setOrders(data.orders);
+        // Auto-load file counts for all orders using numeric ID
+        data.orders.forEach((order: Order) => {
+          fetchOrderFileCount(order.id.toString());
+        });
       } else {
         setError('Failed to fetch orders');
       }
@@ -60,6 +109,22 @@ const AdminOrders = () => {
       setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // New function to get file count without loading state
+  const fetchOrderFileCount = async (orderId: string) => {
+    if (orderFiles[orderId]) return;
+    
+    try {
+      const response = await fetch(`http://localhost/codescholarwriters-api/admin/get_order_files.php?order_id=${orderId}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setOrderFiles(prev => ({ ...prev, [orderId]: data.files }));
+      }
+    } catch (error) {
+      console.error('Error fetching order file count:', error);
     }
   };
 
@@ -215,28 +280,31 @@ const AdminOrders = () => {
             <table className="min-w-full">
               <thead className="bg-gray-700">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Order ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden lg:table-cell">
                     Service
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Price
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden md:table-cell">
                     Payment
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider hidden lg:table-cell">
                     Deadline
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    Files
+                  </th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -244,27 +312,27 @@ const AdminOrders = () => {
               <tbody className="bg-gray-800 divide-y divide-gray-700">
                 {orders.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-6 py-4 text-center text-gray-400">
+                    <td colSpan={9} className="px-6 py-4 text-center text-gray-400">
                       No orders found
                     </td>
                   </tr>
                 ) : (
                   orders.map((order) => (
                     <tr key={order.id} className="hover:bg-gray-750">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-white">{order.order_id}</div>
                         <div className="text-xs text-gray-400">
                           {new Date(order.created_at).toLocaleDateString()}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 sm:px-6 py-4">
                         <div className="text-sm text-white">{order.customer_name}</div>
                         <div className="text-xs text-gray-400">{order.customer_email}</div>
                         {order.customer_phone && (
                           <div className="text-xs text-gray-400">{order.customer_phone}</div>
                         )}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 sm:px-6 py-4 hidden lg:table-cell">
                         <div className="text-sm text-white">{order.service_type}</div>
                         <div className="text-xs text-gray-400">
                           {order.academic_level}
@@ -272,17 +340,17 @@ const AdminOrders = () => {
                           {order.words && ` • ${order.words} words`}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-white">
                           {order.currency === 'USD' ? '$' : '₹'}{order.total_price.toLocaleString()}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         <select
                           value={order.status}
                           onChange={(e) => updateOrderStatus(order.order_id, e.target.value)}
                           disabled={updateLoading === order.order_id}
-                          className={`text-xs px-2 py-1 rounded-full border ${getStatusBadgeColor(order.status)} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                          className={`text-xs px-2 py-1 rounded-full border ${getStatusBadgeColor(order.status)} focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto`}
                         >
                           <option value="pending">Pending</option>
                           <option value="confirmed">Confirmed</option>
@@ -291,19 +359,19 @@ const AdminOrders = () => {
                           <option value="cancelled">Cancelled</option>
                         </select>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden md:table-cell">
                         <select
                           value={order.payment_status}
                           onChange={(e) => updatePaymentStatus(order.order_id, e.target.value)}
                           disabled={updateLoading === order.order_id}
-                          className={`text-xs px-2 py-1 rounded-full border ${getPaymentBadgeColor(order.payment_status)} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                          className={`text-xs px-2 py-1 rounded-full border ${getPaymentBadgeColor(order.payment_status)} focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto`}
                         >
                           <option value="unpaid">Unpaid</option>
                           <option value="paid">Paid</option>
                           <option value="refunded">Refunded</option>
                         </select>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                         <div className="text-sm text-white">
                           {order.deadline_date}
                         </div>
@@ -311,7 +379,43 @@ const AdminOrders = () => {
                           {order.deadline_time}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-3 sm:px-6 py-4">
+                        <div className="flex flex-col space-y-1">
+                          {orderFiles[order.order_id] ? (
+                            <>
+                              <div className="flex items-center space-x-1 mb-1">
+                                <FileText className="w-4 h-4 text-blue-400" />
+                                <span className="text-sm text-white font-medium">
+                                  {orderFiles[order.order_id].length}
+                                </span>
+                              </div>
+                              {orderFiles[order.order_id].length > 0 && (
+                                <div className="space-y-1 max-w-[150px]">
+                                  {orderFiles[order.order_id].map((file: any) => (
+                                    <button
+                                      key={file.id}
+                                      onClick={() => downloadFile(file.id, file.original_filename)}
+                                      className="flex items-center space-x-1 text-xs text-blue-400 hover:text-blue-300 transition-colors bg-blue-900/20 hover:bg-blue-900/40 px-2 py-1 rounded border border-blue-700/30 w-full text-left"
+                                      title={`Download: ${file.original_filename}`}
+                                    >
+                                      <Download className="w-3 h-3 flex-shrink-0" />
+                                      <span className="truncate">
+                                        {file.original_filename}
+                                      </span>
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          ) : (
+                            <div className="flex items-center space-x-1 text-gray-400">
+                              <FileText className="w-4 h-4" />
+                              <span className="text-sm">0</span>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm">
                         <button
                           onClick={() => alert(`Order Details:\n\nOrder ID: ${order.order_id}\nCustomer: ${order.customer_name}\nEmail: ${order.customer_email}\nPhone: ${order.customer_phone || 'Not provided'}\n\nService: ${order.service_type}\nAcademic Level: ${order.academic_level}\nPages: ${order.pages || 'N/A'}\nWords: ${order.words || 'N/A'}\n\nSubject: ${order.subject || 'N/A'}\nInstructions: ${order.instructions || 'No special instructions'}\n\nDeadline: ${order.deadline_date} ${order.deadline_time}\nPrice: ${order.currency === 'USD' ? '$' : '₹'}${order.total_price}`)}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-medium transition-colors"

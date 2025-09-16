@@ -25,13 +25,13 @@ interface Blog {
   updated_at: string;
 }
 
-interface BlogPageData {
-  blogs: Blog[];
-  total: number;
-  limit: number;
-  offset: number;
-  categories: string[];
-}
+// interface BlogPageData {
+//   blogs: Blog[];
+//   total: number;
+//   limit: number;
+//   offset: number;
+//   categories: string[];
+// }
 
 const BlogPage = () => {
   const { slug } = useParams();
