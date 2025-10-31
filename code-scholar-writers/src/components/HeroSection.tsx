@@ -48,7 +48,7 @@ const HeroSection = () => {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xl font-bold text-gray-900">1000+</div>
+                    <div className="text-xl font-bold text-gray-900">9000+</div>
                     <div className="text-sm text-gray-600">Completed Projects</div>
                   </div>
                 </div>
