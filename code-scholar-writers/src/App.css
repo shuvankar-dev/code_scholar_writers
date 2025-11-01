@@ -1,3 +1,9 @@
+
+body {
+  background: linear-gradient(90deg, #f5f8ff 0%, #a259f7 40%, #ff6a88 70%, #ffb86c 100%);
+  min-height: 100vh;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -11,11 +17,33 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #A259F7);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #FF6A88);
+}
+
+.accent-gradient {
+  background: linear-gradient(90deg, #A259F7 0%, #FF6A88 50%, #FFD36E 100%);
+  color: #fff;
+}
+
+
+.btn-gradient {
+  background: linear-gradient(90deg, #a259f7 0%, #ff6a88 60%, #ffb86c 100%);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.75em 2em;
+  font-weight: bold;
+  box-shadow: 0 2px 16px 0 #a259f733;
+  transition: transform 0.2s;
+}
+.btn-gradient:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 24px 0 #ff6a8833;
 }
 
 @keyframes logo-spin {

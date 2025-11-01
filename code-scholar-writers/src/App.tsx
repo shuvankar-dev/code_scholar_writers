@@ -10,6 +10,7 @@ import ServicesPage from './pages/ServicesPage'
 import PricingPage from './pages/PricingPage'
 import FAQPage from './pages/FAQPage'
 import BlogPage from './components/BlogPage'
+import ContactPage from './pages/ContactPage'
 
 // Admin Components
 import AdminLogin from './components/admin/AdminLogin'
@@ -41,6 +42,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminLogin />} />

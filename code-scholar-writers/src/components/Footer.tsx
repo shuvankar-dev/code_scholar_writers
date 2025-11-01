@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 text-white">
+    <footer className="bg-[linear-gradient(90deg,_#a259f7_0%,_#ff6a88_60%,_#ffb86c_100%)] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -12,7 +12,7 @@ function Footer() {
                 <span className="text-white font-bold text-xl">CS</span>
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                Code Scholar Writers
+                CodeScholar Writers
               </span>
             </div>
             <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
@@ -123,7 +123,7 @@ function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} Code Scholar Writers. All rights reserved.
+            &copy; {new Date().getFullYear()} CodeScholar Writers. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">

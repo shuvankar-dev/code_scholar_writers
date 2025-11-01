@@ -14,7 +14,7 @@ function Header() {
               <span className="text-white font-bold text-xl">CS</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Code Scholar Writers
+              CodeScholar Writers
             </span>
           </Link>
 

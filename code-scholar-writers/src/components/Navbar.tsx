@@ -14,7 +14,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
   // WhatsApp integration function
   const handleWhatsAppClick = () => {
     const phoneNumber = "918274806946"; // Remove spaces and special characters for URL
-    const message = "Hi Code Scholar, can you send me more details for my assignment?";
+  const message = "Hi CodeScholar, can you send me more details for my assignment?";
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
   };
@@ -26,29 +26,30 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
     { name: "Pricing", href: "/pricing" },
     { name: "FAQ", href: "/faq" },
     { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-md border-b border-gray-700">
+  <nav className="fixed top-0 w-full z-50 bg-[#18122B]/95 backdrop-blur-md border-b border-[#A259F7]/40">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center h-16" style={{ justifyContent: 'space-between' }}>
           {/* Logo - using available left space */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="Code Scholar Writers" className="h-45 w-45" />
+              <img src={logo} alt="CodeScholar Writers" className="h-45 w-45" />
             </Link>
           </div>
 
           {/* Desktop Navigation - centered with good spacing */}
           <div className="hidden md:block flex-1">
             <div className="flex items-baseline justify-center space-x-6">
+              {/* Updated text color for better visibility */}
               {navItems.map((item) => (
                 item.href.startsWith('#') ? (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-gray-300 hover:text-blue-400 px-3 py-2 text-base font-bold transition-all duration-300 hover:scale-105"
+                    className="px-3 py-2 text-base font-bold transition-all duration-300 hover:scale-105 text-white hover:text-[#FFD36E]"
                   >
                     {item.name}
                   </a>
@@ -56,7 +57,7 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-gray-300 hover:text-blue-400 px-3 py-2 text-base font-bold transition-all duration-300 hover:scale-105"
+                    className="px-3 py-2 text-base font-bold transition-all duration-300 hover:scale-105 text-white hover:text-[#a259f7]"
                   >
                     {item.name}
                   </Link>
