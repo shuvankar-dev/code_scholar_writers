@@ -1,4 +1,7 @@
 import { PixelImage } from "@/components/magicui/pixel-image";
+import { File, Search, Settings } from "lucide-react"
+
+import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 
 const ServicesSection = () => {
   return (
@@ -135,6 +138,140 @@ const ServicesSection = () => {
             </ul>
           </div>
         </div>
+
+        {/* Orbiting-Circles Component - Academic Services Icons */}
+          <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 mb-16">
+          {/* Center Logo/Badge */}
+          <div className="relative z-10 flex h-32 w-32 items-center justify-center rounded-full border-4 border-white bg-black shadow-2xl">
+            <img 
+              src="/logo.png" 
+              alt="CodeScholar Writers Logo" 
+              className="h-28 w-28 object-contain"
+            />
+          </div>
+
+          {/* OUTERMOST Ring - University/College Logos */}
+          <OrbitingCircles iconSize={70} radius={240} duration={35} path>
+            {/* Oxford */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/OX.png" alt="Oxford" className="w-full h-full object-contain" />
+            </div>
+
+            {/* Cambridge */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/CAM.png" alt="Cambridge" className="w-full h-full object-contain" />
+            </div>
+
+            {/* LSE */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/LSE.png" alt="LSE" className="w-full h-full object-contain" />
+            </div>
+
+            {/* Imperial College */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/ICL.png" alt="Imperial" className="w-full h-full object-contain" />
+            </div>
+
+            {/* UCL */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/UCL.png" alt="UCL" className="w-full h-full object-contain" />
+            </div>
+
+            {/* ANU */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/ANU.png" alt="ANU" className="w-full h-full object-contain" />
+            </div>
+
+            {/* University of Sydney */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/USY.png" alt="Sydney" className="w-full h-full object-contain" />
+            </div>
+
+            {/* University of Melbourne */}
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2">
+              <img src="/UnivercityLogo/UML.png" alt="Melbourne" className="w-full h-full object-contain" />
+            </div>
+          </OrbitingCircles>
+
+          {/* MIDDLE Ring - 6 Academic Service Icons */}
+          <OrbitingCircles iconSize={60} radius={180} duration={25} reverse path>
+            {/* Writing Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </div>
+
+            {/* Coding Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+
+            {/* Data Analysis Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+
+            {/* Research Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            {/* Assignment Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+
+            {/* Thesis Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-pink-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+          </OrbitingCircles>
+
+          {/* INNER Ring - 4 Core Service Icons */}
+          <OrbitingCircles iconSize={50} radius={120} speed={1.5} path>
+            {/* Essay Writing */}
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </div>
+
+            {/* Programming */}
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-violet-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+
+            {/* Data Analysis */}
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+
+            {/* Research Paper */}
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-lg hover:scale-110 transition-transform">
+              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+          </OrbitingCircles>
+        </div>
+
+
+         
 
         {/* 360 Solutions - Clean Orbital Layout */}
         <div className="py-12 bg-gray-50 relative overflow-hidden">

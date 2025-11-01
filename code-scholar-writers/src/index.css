@@ -3,6 +3,30 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* CSS Variables */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+}
+
 /* Reset and base styles */
 * {
   box-sizing: border-box;
@@ -84,44 +108,40 @@ body {
   animation: slide-in 0.3s ease-out;
 }
 
-@theme inline {
-  --animate-shine: shine var(--duration) infinite linear;
-  @keyframes shine {
+/* Shine Animation */
+@keyframes shine {
   0% {
     background-position: 0% 0%;
-    }
+  }
   50% {
     background-position: 100% 100%;
-    }
+  }
   to {
     background-position: 0% 0%;
-    }
   }
-  --animate-orbit: orbit calc(var(--duration)*1s) linear infinite
-;
-  @keyframes orbit {
-  0% {
-    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
-    }
-  100% {
-    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
-    }
-  }}
+}
 
-@layer base {
-  * {
-    @apply border-gray-200 outline-blue-500/50;
+/* Orbit Animation */
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg);
   }
-  body {
-    @apply bg-white text-gray-900;
+  100% {
+    transform: rotate(360deg) translateY(calc(var(--radius) * 1px)) rotate(-360deg);
   }
+}
+
+.animate-orbit {
+  animation: orbit calc(var(--duration, 20) * 1s) linear infinite;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: hsl(var(--border));
+    outline-color: hsl(var(--ring) / 0.5);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
