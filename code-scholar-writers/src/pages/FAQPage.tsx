@@ -200,16 +200,15 @@ const FAQPage = () => {
               Can't find the answer you're looking for? Our support team is here to help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="outline"
-                className="bg-white text-blue-600 border-white hover:bg-blue-50"
-                onClick={() => window.location.href = '/contact'}
+              <button 
+                className="text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:scale-105"
+                style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
               >
                 Contact Support
-              </Button>
+              </button>
               <Button
-                variant="outline"
-                className="bg-transparent border-white text-white hover:bg-white hover:text-blue-600"
+                className="text-white border-none hover:scale-105 transition-all duration-300"
+                style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
                 onClick={() => window.location.href = '/calculate-price'}
               >
                 Get Free Quote

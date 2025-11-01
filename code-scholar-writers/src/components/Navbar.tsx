@@ -70,14 +70,18 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
           <div className="hidden md:flex items-center gap-4 flex-shrink-0">
             <button 
               onClick={onCalculatePrice}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
+              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
             >
               Calculate Price
             </button>
             <button 
               onClick={handleWhatsAppClick}
-              className="bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="flex items-center gap-2 text-green-600 border border-green-500 bg-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:bg-green-50 hover:scale-105 shadow-lg"
             >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.028-.967-.271-.099-.468-.148-.666.15-.198.297-.767.967-.94 1.166-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.666-1.611-.912-2.207-.242-.579-.487-.5-.666-.51-.173-.008-.372-.01-.571-.01-.198 0-.52.075-.792.372-.271.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.099 3.2 5.077 4.358.711.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.413-.075-.124-.271-.198-.571-.347z"/>
+              </svg>
               Get Free Quote
             </button>
           </div>
@@ -127,7 +131,8 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
                 onCalculatePrice();
                 setIsOpen(false);
               }}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+              className="w-full text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg"
+              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
             >
               Calculate Price
             </button>
@@ -136,8 +141,12 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
                 handleWhatsAppClick();
                 setIsOpen(false);
               }}
-              className="w-full bg-gray-800 text-blue-400 border-2 border-blue-400 px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-400 hover:text-gray-900 transition-all duration-300 shadow-lg"
+              className="flex items-center gap-2 w-full text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg"
+              style={{ background: 'linear-gradient(to right, #25D366, #128C7E)' }}
             >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.028-.967-.271-.099-.468-.148-.666.15-.198.297-.767.967-.94 1.166-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.666-1.611-.912-2.207-.242-.579-.487-.5-.666-.51-.173-.008-.372-.01-.571-.01-.198 0-.52.075-.792.372-.271.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.099 3.2 5.077 4.358.711.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.413-.075-.124-.271-.198-.571-.347z"/>
+              </svg>
               Get Free Quote
             </button>
           </div>

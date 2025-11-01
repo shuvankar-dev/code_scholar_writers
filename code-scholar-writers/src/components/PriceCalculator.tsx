@@ -769,7 +769,8 @@ const PriceCalculator = () => {
           type="button"
           onClick={calculatePrice}
           disabled={!isFormValid() || loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full text-white py-3 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
         >
           {loading ? 'Calculating...' : 'Calculate Price'}
         </button>
@@ -815,14 +816,16 @@ const PriceCalculator = () => {
           <div className="space-y-3">
             <button
               type="button"
-              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg"
+              className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg"
+              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
               onClick={() => setShowOrderForm(true)}
             >
               Order Now - {formData.currency === 'USD' ? '$' : '₹'}{calculatedPrice.toLocaleString('en-IN')}
             </button>
             <button
               type="button"
-              className="w-full bg-white border-2 border-blue-600 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300"
+              className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg"
+              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
               onClick={() => alert('Quote request functionality will be implemented soon!')}
             >
               Request Custom Quote

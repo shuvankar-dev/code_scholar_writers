@@ -301,10 +301,16 @@ const ServicesPage = () => {
 
                     {/* Action Buttons */}
                     <div className="space-y-3">
-                      {/* <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                      <button 
+                        className="text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:scale-105"
+                        style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
+                      >
                         Order Now
-                      </button> */}
-                      <button className="w-full border-2 border-blue-600 text-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300">
+                      </button>
+                      <button 
+                        className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300"
+                        style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
+                      >
                         Get Free Quote
                       </button>
                     </div>
@@ -324,10 +330,16 @@ const ServicesPage = () => {
             Don't see exactly what you need? We offer custom solutions tailored to your specific requirements.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300">
+            <button 
+              className="text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:scale-105"
+              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
+            >
               Contact Us
             </button>
-            <button className="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
+            <button 
+              className="text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:scale-105"
+              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
+            >
               Calculate Price
             </button>
           </div>

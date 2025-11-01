@@ -17,10 +17,12 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {/* Essay Writing */}
-          <div className="group bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          <div className="group bg-white p-8 rounded-2xl border border-blue-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <div className="w-16 h-16 bg-white border border-blue-200 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              {/* Essay Writing Icon: Pencil */}
+              <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M16.862 3.487a2.06 2.06 0 0 1 2.915 2.915l-9.193 9.193-3.06.34.34-3.06 9.193-9.193z"/>
+                <path d="M19.5 6.5l-2-2"/>
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-blue-900 mb-4">Essay Writing</h3>
@@ -44,13 +46,15 @@ const ServicesSection = () => {
           </div>
 
           {/* Dissertation Writing */}
-          <div className="group bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl border border-purple-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          <div className="group bg-white p-8 rounded-2xl border border-purple-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <div className="w-16 h-16 bg-white border border-purple-200 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              {/* Dissertation Writing Icon: Book */}
+              <svg className="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <path d="M8 4v16"/>
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-purple-900 mb-4">Dissertation Writing</h3>
+            <h3 className="text-2xl font-bold text-purple-700 mb-4">Dissertation Writing</h3>
             <p className="text-gray-700 mb-6 leading-relaxed">
               Comprehensive dissertation support from proposal to final defense preparation.
             </p>
@@ -71,13 +75,17 @@ const ServicesSection = () => {
           </div>
 
           {/* Thesis Writing */}
-          <div className="group bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl border border-green-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <div className="group bg-white p-8 rounded-2xl border border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <div className="w-16 h-16 bg-white border border-green-200 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              {/* Thesis Writing Icon: File/Document */}
+              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <rect x="6" y="4" width="12" height="16" rx="2"/>
+                <path d="M9 8h6"/>
+                <path d="M9 12h6"/>
+                <path d="M9 16h6"/>
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-green-900 mb-4">Thesis Writing</h3>
+            <h3 className="text-2xl font-bold text-green-700 mb-4">Thesis Writing</h3>
             <p className="text-gray-700 mb-6 leading-relaxed">
               Professional thesis writing services for graduate and postgraduate students.
             </p>
@@ -98,13 +106,16 @@ const ServicesSection = () => {
           </div>
 
           {/* Programming Services */}
-          <div className="group bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-2xl border border-orange-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          <div className="group bg-white p-8 rounded-2xl border border-orange-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+            <div className="w-16 h-16 bg-white border border-orange-200 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              {/* Programming Projects Icon: Code Brackets */}
+              <svg className="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M8 9l-4 3 4 3"/>
+                <path d="M16 9l4 3-4 3"/>
+                <path d="M12 4v16"/>
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-orange-900 mb-4">Programming Projects</h3>
+            <h3 className="text-2xl font-bold text-orange-700 mb-4">Programming Projects</h3>
             <p className="text-gray-700 mb-6 leading-relaxed">
               Expert solutions for coding and software development tasks across multiple programming languages.
             </p>
@@ -130,20 +141,23 @@ const ServicesSection = () => {
           <div className="max-w-6xl mx-auto px-6">
             {/* Header */}
             <div className="text-center mb-12">
-              <div className="inline-block px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold mb-4 shadow-lg">
+              <div className="inline-block px-4 py-2 bg-gradient-to-r from-[#a259f7] via-[#ff6a88] to-[#ffb86c] text-white rounded-full text-sm font-semibold mb-4 shadow-lg">
                 360 SOLUTIONS
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
                 Find Every Solution, From Research to
                 <br />
-                <span className="text-blue-600">Academic Excellence</span>
+                <span className="bg-gradient-to-r from-[#a259f7] via-[#ff6a88] to-[#ffb86c] bg-clip-text text-transparent">Academic Excellence</span>
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
                 Access our full 360 Solutions, covering everything from research to final submission. Get expert 
                 assistance, explore quality services, and invest in your future with comprehensive academic 
                 support. It's all here.
               </p>
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              <button 
+                className="text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
+              >
                 Get Started Now
               </button>
             </div>
@@ -234,7 +248,7 @@ const ServicesSection = () => {
                   <div className="flex items-center gap-2">
                     <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
                     <span className="font-semibold text-gray-800 text-xs">Research Papers</span>
