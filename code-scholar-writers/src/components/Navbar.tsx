@@ -69,12 +69,12 @@ const Navbar = ({ onCalculatePrice }: NavbarProps) => {
           {/* CTA Buttons - using available right space */}
           <div className="hidden md:flex items-center gap-4 flex-shrink-0">
             <button 
-              onClick={onCalculatePrice}
-              className="text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
-              style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
-            >
-              Calculate Price
-            </button>
+                onClick={onCalculatePrice}
+                className="text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:scale-105 shadow-lg bg-gradient-to-r from-purple-600 via-red-600 to-orange-500"
+              >
+                Calculate Price
+              </button>
+
             <button 
               onClick={handleWhatsAppClick}
               className="flex items-center gap-2 text-green-600 border border-green-500 bg-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 transform hover:bg-green-50 hover:scale-105 shadow-lg"
