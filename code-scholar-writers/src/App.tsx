@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import ServicesSection from './components/ServicesSection'
+import FAQSection from './components/FAQSection'
 import PriceCalculator from './components/PriceCalculator'
 import Footer from './components/Footer'
 import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
-import PricingPage from './pages/PricingPage'
+import SamplesPage from './pages/SamplesPage'
 import FAQPage from './pages/FAQPage'
 import BlogPage from './components/BlogPage'
 import SingleBlogPage from './components/SingleBlogPage'
@@ -60,12 +61,13 @@ function App() {
                 <>
                   <HeroSection />
                   <ServicesSection />
+                  <FAQSection />
                 </>
               } 
             />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/samples" element={<SamplesPage />} />
             <Route path="/faq" element={<FAQPage />} />
             
             {/* Blog Routes */}
