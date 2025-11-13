@@ -1,5 +1,3 @@
-import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
-
 const ServicesSection = () => {
   // University logos data
   const universities = [
@@ -139,84 +137,6 @@ const ServicesSection = () => {
               </div>
             );
           })}
-        </div>
-
-        {/* Orbiting-Circles Component */}
-        <div className="relative flex h-[400px] sm:h-[600px] w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 rounded-3xl mb-12 sm:mb-16">
-          {/* Center Logo/Badge */}
-          <div className="relative z-10 flex h-24 sm:h-32 w-24 sm:w-32 items-center justify-center rounded-full border-4 border-white bg-black shadow-2xl">
-            <img
-              src="/logo.png"
-              alt="CodeScholar Writers Logo"
-              className="h-20 sm:h-28 w-20 sm:w-28 object-contain"
-              loading="lazy"
-            />
-          </div>
-
-          {/* OUTER Ring - University Logos */}
-          <OrbitingCircles iconSize={70} radius={240} duration={35} path>
-            {universities.slice(0, 5).map((uni) => (
-              <div
-                key={uni.name}
-                className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg border-2 border-gray-200 hover:scale-110 transition-transform p-2"
-              >
-                <img
-                  src={uni.path}
-                  alt={uni.name}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </OrbitingCircles>
-
-          {/* MIDDLE Ring */}
-          <OrbitingCircles iconSize={60} radius={180} duration={25} reverse path>
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </div>
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
-            </div>
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </OrbitingCircles>
-
-          {/* INNER Ring */}
-          <OrbitingCircles iconSize={50} radius={120} speed={1.5} path>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-              </svg>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-violet-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-lg hover:scale-110 transition-transform">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-          </OrbitingCircles>
         </div>
 
         {/* Moving University Logos Section */}

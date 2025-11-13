@@ -36,12 +36,6 @@ const HeroSection = () => {
     setShowRegistrationModal(false);
   };
 
-  const handleWhatsAppClick = () => {
-    const phoneNumber = '918777841275'; 
-    const message = encodeURIComponent('Hi, I want to know more about registration.');
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-  };
-
   return (
     <section className="relative bg-white overflow-hidden">
       {/* Academic Background Effects */}
