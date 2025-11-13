@@ -21,6 +21,7 @@ import AdminOrders from './components/admin/AdminOrders'
 import AdminMasterPrice from './components/admin/AdminMasterPrice'
 import AdminFAQManagement from './components/admin/AdminFAQManagement'
 import AdminBlogManagement from './components/admin/AdminBlogManagement'
+import AdminRegistrationLeads from './components/admin/AdminRegistrationLeads'
 
 // Protected Route Component
 interface ProtectedRouteProps {
@@ -99,6 +100,10 @@ function App() {
             <Route 
               path="/admin/blog" 
               element={<ProtectedRoute element={<AdminBlogManagement />} />} 
+            />
+            <Route 
+              path="/admin/registration-leads" 
+              element={<ProtectedRoute element={<AdminRegistrationLeads />} />} 
             />
             
             {/* 404 Route - Catch All */}

@@ -615,10 +615,10 @@ const PriceCalculator = () => {
   };
 
   return (
-    <div className="relative overflow-hidden w-full max-w-4xl mx-auto lg:mx-0 rounded-2xl bg-white min-h-[600px]">
+    <div className="relative overflow-hidden w-full max-w-4xl mx-auto lg:mx-0 rounded-2xl bg-white">
       <ShineBorder 
         shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} 
-        borderWidth={2}
+        borderWidth={6}
         duration={50}
       />
       <div className="relative z-10 p-6 sm:p-8 w-full h-full">
