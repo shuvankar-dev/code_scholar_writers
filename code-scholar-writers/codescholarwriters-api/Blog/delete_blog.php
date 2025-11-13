@@ -9,9 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-include_once 'config.php';
+require_once '../config.php';
 
 try {
+    $db = new Database();
+    $pdo = $db->getConnection();
+    
     // Check if request method is POST
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception('Only POST method allowed');
@@ -19,6 +22,10 @@ try {
 
     // Get JSON input
     $input = json_decode(file_get_contents('php://input'), true);
+    
+    if (!$input) {
+        throw new Exception('Invalid JSON input');
+    }
     
     // Validate required fields
     if (empty($input['id'])) {
@@ -46,7 +53,10 @@ try {
         echo json_encode([
             'success' => true,
             'message' => 'Blog post deleted successfully',
-            'deleted_blog' => $existingBlog['title']
+            'deleted_blog' => [
+                'id' => $blogId,
+                'title' => $existingBlog['title']
+            ]
         ]);
     } else {
         throw new Exception('Failed to delete blog post');

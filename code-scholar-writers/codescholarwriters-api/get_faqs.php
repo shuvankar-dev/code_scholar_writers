@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Database connection - Direct connection (no Database class needed)
+// Database connection
 $host = 'localhost';
 $dbname = 'codescholarwriters';
 $username = 'root';
@@ -39,15 +39,14 @@ try {
     $category = isset($_GET['category']) ? $_GET['category'] : null;
     $admin = isset($_GET['admin']) && $_GET['admin'] === 'true';
     
-    // Base query - Admin version shows all FAQs
+    // Base query
     $sql = "SELECT id, question, answer, category, display_order, is_active, created_at, updated_at FROM faqs";
     $params = [];
     
     // Add conditions
     $conditions = [];
     
-    // For admin, show all FAQs (active and inactive)
-    // For public, only show active FAQs
+    // If not admin request, only show active FAQs
     if (!$admin) {
         $conditions[] = "is_active = 1";
     }
@@ -70,12 +69,13 @@ try {
     $stmt->execute($params);
     $faqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Get all categories (including inactive ones for admin)
-    $categoryStmt = $pdo->prepare("SELECT DISTINCT category FROM faqs ORDER BY category");
+    // Get categories for filtering (only active ones for public view)
+    $categoryCondition = $admin ? "" : "WHERE is_active = 1";
+    $categoryStmt = $pdo->prepare("SELECT DISTINCT category FROM faqs $categoryCondition ORDER BY category");
     $categoryStmt->execute();
     $categories = $categoryStmt->fetchAll(PDO::FETCH_COLUMN);
     
-    // Group FAQs by category
+    // Group FAQs by category for better organization
     $groupedFaqs = [];
     foreach ($faqs as $faq) {
         $cat = $faq['category'];
@@ -85,32 +85,13 @@ try {
         $groupedFaqs[$cat][] = $faq;
     }
     
-    // Get stats for admin
-    $stats = [];
-    if ($admin) {
-        $totalStmt = $pdo->prepare("SELECT COUNT(*) as total FROM faqs");
-        $totalStmt->execute();
-        $total = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
-        
-        $activeStmt = $pdo->prepare("SELECT COUNT(*) as active FROM faqs WHERE is_active = 1");
-        $activeStmt->execute();
-        $active = $activeStmt->fetch(PDO::FETCH_ASSOC)['active'];
-        
-        $stats = [
-            'total' => $total,
-            'active' => $active,
-            'inactive' => $total - $active
-        ];
-    }
-    
     echo json_encode([
         'success' => true,
         'faqs' => $faqs,
         'grouped_faqs' => $groupedFaqs,
         'categories' => $categories,
         'total_count' => count($faqs),
-        'is_admin' => $admin,
-        'stats' => $stats
+        'is_admin' => $admin
     ]);
 
 } catch (Exception $e) {

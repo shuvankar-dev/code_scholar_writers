@@ -9,9 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-include_once 'config.php';
+require_once '../config.php';
 
 try {
+    $db = new Database();
+    $pdo = $db->getConnection();
+    
     // Check if request method is POST
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception('Only POST method allowed');
@@ -20,9 +23,13 @@ try {
     // Get JSON input
     $input = json_decode(file_get_contents('php://input'), true);
     
+    if (!$input) {
+        throw new Exception('Invalid JSON input');
+    }
+    
     // Validate required fields
-    if (empty($input['id']) || empty($input['title']) || empty($input['content']) || empty($input['author'])) {
-        throw new Exception('ID, title, content, and author are required');
+    if (empty($input['id']) || empty($input['title']) || empty($input['content'])) {
+        throw new Exception('ID, title, and content are required');
     }
     
     $blogId = (int)$input['id'];
@@ -58,23 +65,32 @@ try {
     $title = trim($input['title']);
     $excerpt = isset($input['excerpt']) ? trim($input['excerpt']) : '';
     $content = trim($input['content']);
-    $author = trim($input['author']);
-    $featuredImage = isset($input['featured_image']) ? trim($input['featured_image']) : null;
+    $author = isset($input['author']) ? trim($input['author']) : 'Admin';
+    $featuredImage = isset($input['featured_image']) ? trim($input['featured_image']) : '';
     $category = isset($input['category']) ? trim($input['category']) : 'General';
     $tags = isset($input['tags']) ? trim($input['tags']) : '';
     $status = isset($input['status']) ? $input['status'] : 'draft';
-    $featured = isset($input['featured']) ? (int)$input['featured'] : 0;
+    $featured = isset($input['is_featured']) ? (int)$input['is_featured'] : 0;
     $metaTitle = isset($input['meta_title']) ? trim($input['meta_title']) : $title;
     $metaDescription = isset($input['meta_description']) ? trim($input['meta_description']) : $excerpt;
-    $metaKeywords = isset($input['meta_keywords']) ? trim($input['meta_keywords']) : '';
+    
+    // Generate excerpt if not provided
+    if (empty($excerpt)) {
+        $excerpt = substr(strip_tags($content), 0, 200) . '...';
+    }
     
     // Validate status
-    if (!in_array($status, ['draft', 'published', 'archived'])) {
+    if (!in_array($status, ['draft', 'published'])) {
         $status = 'draft';
     }
     
-    // Update blog post
-    $query = "UPDATE blogs SET title = ?, slug = ?, excerpt = ?, content = ?, author = ?, featured_image = ?, category = ?, tags = ?, status = ?, featured = ?, meta_title = ?, meta_description = ?, meta_keywords = ?, reading_time = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+    // Update blog post - using 'featured' instead of 'is_featured'
+    $query = "UPDATE blogs SET 
+        title = ?, slug = ?, excerpt = ?, content = ?, author = ?, 
+        featured_image = ?, category = ?, tags = ?, status = ?, 
+        featured = ?, meta_title = ?, meta_description = ?, 
+        reading_time = ?, updated_at = NOW() 
+        WHERE id = ?";
     
     $stmt = $pdo->prepare($query);
     $result = $stmt->execute([
@@ -90,7 +106,6 @@ try {
         $featured,
         $metaTitle,
         $metaDescription,
-        $metaKeywords,
         $readingTime,
         $blogId
     ]);
