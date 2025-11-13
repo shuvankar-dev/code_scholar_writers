@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { getApiUrl } from '@/config/api';
 
 interface FAQ {
   id: number;
@@ -14,10 +16,12 @@ interface FAQ {
 }
 
 const FAQPage = () => {
+  const navigate = useNavigate();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -27,21 +31,37 @@ const FAQPage = () => {
 
   const fetchFAQs = async () => {
     try {
-      const url = selectedCategory === 'all' 
-        ? 'http://localhost/codescholarwriters-api/get_faqs.php'
-        : `http://localhost/codescholarwriters-api/get_faqs.php?category=${encodeURIComponent(selectedCategory)}`;
-      
+      setLoading(true);
+      setError('');
+
+      const params = new URLSearchParams();
+      if (selectedCategory !== 'all') {
+        params.append('category', selectedCategory);
+      }
+
+      const url = params.toString() 
+        ? `${getApiUrl('get_faqs.php')}?${params}`
+        : getApiUrl('get_faqs.php');
+
       const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
-        setFaqs(data.faqs || []);
+        const activeFaqs = (data.faqs || []).filter((faq: FAQ) => faq.is_active === 1);
+        setFaqs(activeFaqs);
         setCategories(data.categories || []);
       } else {
+        setError('Failed to load FAQs. Please try again.');
         console.error('Failed to fetch FAQs:', data.error);
       }
     } catch (error) {
       console.error('Error fetching FAQs:', error);
+      setError('Error loading FAQs. Please refresh the page.');
     } finally {
       setLoading(false);
     }
@@ -62,7 +82,22 @@ const FAQPage = () => {
     faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const displayFaqs = selectedCategory === 'all' ? filteredFaqs : filteredFaqs.filter(faq => faq.category === selectedCategory);
+  const displayFaqs = selectedCategory === 'all' 
+    ? filteredFaqs 
+    : filteredFaqs.filter(faq => faq.category === selectedCategory);
+
+  const handleContactSupport = () => {
+    navigate('/contact');
+  };
+
+  const handleGetQuote = () => {
+    navigate('/');
+    // Scroll to price calculator
+    setTimeout(() => {
+      const calculator = document.getElementById('price-calculator');
+      calculator?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
 
   if (loading) {
     return (
@@ -77,16 +112,23 @@ const FAQPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-2">
             Find answers to common questions about our academic writing services
           </p>
         </div>
+
+        {/* Error Display */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-8">
+            {error}
+          </div>
+        )}
 
         {/* Search Bar */}
         <div className="mb-8">
@@ -101,18 +143,19 @@ const FAQPage = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search FAQs..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              aria-label="Search FAQs"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
         </div>
 
         {/* Category Filter */}
-        <div className="mb-8">
-          <div className="flex flex-wrap justify-center gap-2">
+        <div className="mb-8 overflow-x-auto">
+          <div className="flex justify-center gap-2 flex-wrap pb-2">
             <Button
               variant={selectedCategory === 'all' ? 'default' : 'outline'}
               onClick={() => setSelectedCategory('all')}
-              className="mb-2"
+              className="mb-2 text-sm"
             >
               All Categories
             </Button>
@@ -121,7 +164,7 @@ const FAQPage = () => {
                 key={category}
                 variant={selectedCategory === category ? 'default' : 'outline'}
                 onClick={() => setSelectedCategory(category)}
-                className="mb-2"
+                className="mb-2 text-sm whitespace-nowrap"
               >
                 {category}
               </Button>
@@ -130,45 +173,53 @@ const FAQPage = () => {
         </div>
 
         {/* FAQ List */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {displayFaqs.length === 0 ? (
-            <Card className="p-8 text-center">
+            <Card className="p-6 sm:p-8 text-center">
               <div className="text-gray-500">
-                <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <p className="text-lg font-medium text-gray-600">No FAQs found</p>
-                <p className="text-gray-500">
-                  {searchTerm ? 'Try adjusting your search terms' : 'No FAQs available in this category'}
+                <p className="text-base sm:text-lg font-medium text-gray-600">No FAQs found</p>
+                <p className="text-sm sm:text-base text-gray-500 mt-2">
+                  {searchTerm 
+                    ? 'Try adjusting your search terms' 
+                    : 'No FAQs available in this category'}
                 </p>
               </div>
             </Card>
           ) : (
             displayFaqs.map((faq) => (
-              <Card key={faq.id} className="overflow-hidden">
+              <Card 
+                key={faq.id} 
+                className="overflow-hidden hover:shadow-md transition-shadow duration-200"
+              >
                 <button
                   onClick={() => toggleExpanded(faq.id)}
-                  className="w-full p-6 text-left hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                  className="w-full p-4 sm:p-6 text-left hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                  aria-expanded={expandedItems.has(faq.id)}
+                  aria-controls={`faq-answer-${faq.id}`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 break-words">
                         {faq.question}
                       </h3>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                           {faq.category}
                         </span>
                       </div>
                     </div>
-                    <div className="ml-4">
+                    <div className="ml-4 flex-shrink-0">
                       <svg
-                        className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+                        className={`w-5 h-5 text-gray-500 transition-transform duration-200 flex-shrink-0 ${
                           expandedItems.has(faq.id) ? 'rotate-180' : ''
                         }`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
+                        aria-hidden="true"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
@@ -177,13 +228,14 @@ const FAQPage = () => {
                 </button>
                 
                 {expandedItems.has(faq.id) && (
-                  <div className="px-6 pb-6 border-t border-gray-100">
+                  <div 
+                    id={`faq-answer-${faq.id}`}
+                    className="px-4 sm:px-6 pb-4 sm:pb-6 border-t border-gray-100 animate-in fade-in slide-in-from-top-2 duration-200"
+                  >
                     <div className="pt-4">
-                      <div className="prose prose-blue max-w-none">
-                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                          {faq.answer}
-                        </p>
-                      </div>
+                      <p className="text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-wrap break-words">
+                        {faq.answer}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -194,22 +246,25 @@ const FAQPage = () => {
 
         {/* Contact Section */}
         <Card className="mt-12 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div className="p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
-            <p className="text-blue-100 mb-6">
+          <div className="p-6 sm:p-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
+              Still have questions?
+            </h2>
+            <p className="text-blue-100 mb-6 sm:mb-8 text-sm sm:text-base">
               Can't find the answer you're looking for? Our support team is here to help.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <button 
-                className="text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-lg hover:scale-105"
+                onClick={handleContactSupport}
+                className="text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-sm sm:text-base transition-all duration-300 shadow-lg hover:scale-105 active:scale-95"
                 style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
               >
                 Contact Support
               </button>
               <Button
-                className="text-white border-none hover:scale-105 transition-all duration-300"
+                onClick={handleGetQuote}
+                className="text-white border-none hover:scale-105 active:scale-95 transition-all duration-300 text-sm sm:text-base"
                 style={{ background: 'linear-gradient(to right, #6a1b9a, #d32f2f, #f57c00, #fbc02d)' }}
-                onClick={() => window.location.href = '/calculate-price'}
               >
                 Get Free Quote
               </Button>

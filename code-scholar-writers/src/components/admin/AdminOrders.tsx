@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Download, FileText } from 'lucide-react';
 
+// API Base URL - automatically switches between local and production
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost/codescholarwriters-api'
+  : '/codescholarwriters-api';
+
 interface Order {
   id: number;
   order_id: string;
@@ -46,23 +51,35 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
+      const token = localStorage.getItem('adminToken');
       const url = statusFilter 
-        ? `http://localhost/codescholarwriters-api/admin/get_orders.php?status=${statusFilter}`
-        : 'http://localhost/codescholarwriters-api/admin/get_orders.php';
+        ? `${API_BASE}/admin/get_orders.php?status=${statusFilter}`
+        : `${API_BASE}/admin/get_orders.php`;
         
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
         setOrders(data.orders);
+        setError('');
         // Auto-load file counts for all orders
         data.orders.forEach((order: Order) => {
           fetchOrderFileCountWithOrder(order.order_id, order.id);
         });
       } else {
-        setError('Failed to fetch orders');
+        setError('Failed to fetch orders: ' + (data.error || 'Unknown error'));
       }
     } catch (err) {
+      console.error('Fetch error:', err);
       setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
@@ -71,7 +88,12 @@ const AdminOrders = () => {
 
   const downloadFile = async (fileId: string, filename: string) => {
     try {
-      const response = await fetch(`http://localhost/codescholarwriters-api/admin/download_file.php?file_id=${fileId}`);
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_BASE}/admin/download_file.php?file_id=${fileId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
       
       if (response.ok) {
         const blob = await response.blob();
@@ -98,10 +120,20 @@ const AdminOrders = () => {
     
     try {
       console.log(`Fetching files for order ${orderId} with numeric ID: ${numericId}`);
-      const url = `http://localhost/codescholarwriters-api/admin/get_order_files.php?order_id=${numericId}`;
+      const token = localStorage.getItem('adminToken');
+      const url = `${API_BASE}/admin/get_order_files.php?order_id=${numericId}`;
       console.log(`Fetching from URL: ${url}`);
       
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
       
       console.log(`Response for order ${orderId}:`, data);
@@ -122,16 +154,22 @@ const AdminOrders = () => {
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     setUpdateLoading(orderId);
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/update_order.php', {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_BASE}/admin/update_order.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           order_id: orderId,
           status: newStatus
         }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
 
@@ -148,6 +186,7 @@ const AdminOrders = () => {
         alert('Failed to update order status: ' + (data.error || 'Unknown error'));
       }
     } catch (err) {
+      console.error('Update error:', err);
       alert('Error updating order status. Please try again.');
     } finally {
       setUpdateLoading(null);
@@ -157,16 +196,22 @@ const AdminOrders = () => {
   const updatePaymentStatus = async (orderId: string, newPaymentStatus: string) => {
     setUpdateLoading(orderId);
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/update_order.php', {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_BASE}/admin/update_order.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           order_id: orderId,
           payment_status: newPaymentStatus
         }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
 
@@ -183,6 +228,7 @@ const AdminOrders = () => {
         alert('Failed to update payment status: ' + (data.error || 'Unknown error'));
       }
     } catch (err) {
+      console.error('Update error:', err);
       alert('Error updating payment status. Please try again.');
     } finally {
       setUpdateLoading(null);

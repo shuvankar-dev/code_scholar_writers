@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getApiUrl } from '@/config/api';
 
 interface FAQ {
   id: number;
@@ -49,7 +50,7 @@ const AdminFAQManagement = () => {
 
   const fetchFAQs = async () => {
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/get_faqs.php?admin=true');
+      const response = await fetch(`${getApiUrl('faq/get_faqs.php')}?admin=true`);
       const data = await response.json();
 
       if (data.success) {
@@ -99,7 +100,7 @@ const AdminFAQManagement = () => {
 
     setSaving(true);
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/add_faq.php', {
+      const response = await fetch(getApiUrl('faq/create_faq.php'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +139,7 @@ const AdminFAQManagement = () => {
 
     setSaving(true);
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/update_faq.php', {
+      const response = await fetch(getApiUrl('faq/update_faq.php'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -177,7 +178,7 @@ const AdminFAQManagement = () => {
 
     setSaving(true);
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/delete_faq.php', {
+      const response = await fetch(getApiUrl('faq/delete_faq.php'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

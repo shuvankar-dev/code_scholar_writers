@@ -5,6 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
+// API Base URL - automatically switches between local and production
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost/codescholarwriters-api'
+  : '/codescholarwriters-api';
+
 interface PriceItem {
   id: number;
   price_type: string;
@@ -54,7 +59,12 @@ const AdminMasterPrice = () => {
 
   const fetchPrices = async () => {
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/get_prices.php');
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_BASE}/admin/get_prices.php`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -118,15 +128,21 @@ const AdminMasterPrice = () => {
   };
 
   const updateSinglePrice = async (priceKey: string) => {
+    if (!editingPrices[priceKey] || isNaN(parseFloat(editingPrices[priceKey]))) {
+      showToastMessage('Please enter a valid price value', 'error');
+      return;
+    }
+
     setSaving(true);
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/update_prices.php', {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_BASE}/admin/update_prices.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Authorization': `Bearer ${token}`,
         },
-        credentials: 'include', // Include cookies for session
+        credentials: 'include',
         body: JSON.stringify({
           action: 'update_single',
           price_key: priceKey,
@@ -159,20 +175,28 @@ const AdminMasterPrice = () => {
   };
 
   const updateAllPrices = async () => {
+    // Validate all prices before updating
+    const priceUpdates = Object.entries(editingPrices).map(([price_key, price_value]) => {
+      const numValue = parseFloat(price_value);
+      if (isNaN(numValue)) {
+        throw new Error(`Invalid price value for ${price_key}`);
+      }
+      return {
+        price_key,
+        price_value: numValue
+      };
+    });
+
     setSaving(true);
     try {
-      const priceUpdates = Object.entries(editingPrices).map(([price_key, price_value]) => ({
-        price_key,
-        price_value: parseFloat(price_value)
-      }));
-
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/update_prices.php', {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`${API_BASE}/admin/update_prices.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Authorization': `Bearer ${token}`,
         },
-        credentials: 'include', // Include cookies for session
+        credentials: 'include',
         body: JSON.stringify({
           action: 'update_all',
           prices: priceUpdates
@@ -344,6 +368,7 @@ const AdminMasterPrice = () => {
                           onChange={(e) => handlePriceChange(price.price_key, e.target.value)}
                           className="bg-gray-600 border-gray-500 text-white focus:border-blue-500"
                           placeholder="0.00"
+                          disabled={saving}
                         />
                       </div>
                       <Button

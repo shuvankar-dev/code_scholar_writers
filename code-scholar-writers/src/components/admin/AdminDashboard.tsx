@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getApiUrl } from '@/config/api';
 
 interface AdminUser {
   id: number;
@@ -44,15 +45,15 @@ const AdminDashboard = () => {
   const fetchOrderStats = async () => {
     try {
       // Fetch orders
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/get_orders.php');
+      const response = await fetch(getApiUrl('admin/get_orders.php'));
       const data = await response.json();
 
       // Fetch FAQ count
-      const faqResponse = await fetch('http://localhost/codescholarwriters-api/get_faqs.php?admin=true');
+      const faqResponse = await fetch(`${getApiUrl('faq/get_faqs.php')}?admin=true`);
       const faqData = await faqResponse.json();
 
-      // Fetch Blog count
-      const blogResponse = await fetch('http://localhost/codescholarwriters-api/get_blogs.php?admin=true');
+      // Fetch Blog count - using correct path (root directory, not Blog folder)
+      const blogResponse = await fetch(`${getApiUrl('get_blogs.php')}?admin=true`);
       const blogData = await blogResponse.json();
 
       if (data.success) {

@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { getApiUrl } from '@/config/api';
 
 interface Blog {
   id: number;
@@ -76,7 +77,7 @@ const BlogPage = () => {
         params.append('category', selectedCategory);
       }
 
-      const response = await fetch(`http://localhost/codescholarwriters-api/get_blogs.php?${params}`);
+      const response = await fetch(`${getApiUrl('get_blogs.php')}?${params}`);
       const data = await response.json();
 
       if (data.success) {
@@ -99,7 +100,7 @@ const BlogPage = () => {
   const fetchSingleBlog = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost/codescholarwriters-api/get_blog_by_slug.php?slug=${slug}`);
+      const response = await fetch(`${getApiUrl('get_blog_by_slug.php')}?slug=${slug}`);
       const data = await response.json();
 
       if (data.success) {

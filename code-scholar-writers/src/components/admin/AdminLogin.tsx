@@ -12,6 +12,11 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
+// API Base URL - automatically switches between local and production
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost/codescholarwriters-api'
+  : '/codescholarwriters-api';
+
 const AdminLogin = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -33,8 +38,15 @@ const AdminLogin = () => {
     setLoading(true);
     setError('');
 
+    // Basic validation
+    if (!formData.username.trim() || !formData.password.trim()) {
+      setError('Please enter both username and password');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/login.php', {
+      const response = await fetch(`${API_BASE}/admin/login.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,6 +67,7 @@ const AdminLogin = () => {
         setError(data.error || 'Login failed');
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
@@ -76,7 +89,7 @@ const AdminLogin = () => {
             </Button>
           </div>
           <CardDescription className="text-gray-400">
-            Enter your email below to login to your account
+            Enter your credentials below to login to your account
           </CardDescription>
         </CardHeader>
         
@@ -89,26 +102,32 @@ const AdminLogin = () => {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium text-gray-300">Email</Label>
+              <Label htmlFor="username" className="text-sm font-medium text-gray-300">
+                Username or Email
+              </Label>
               <Input
                 id="username"
                 name="username"
                 type="text"
-                placeholder="m@example.com"
+                placeholder="your-email@example.com"
                 required
                 value={formData.username}
                 onChange={handleChange}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                disabled={loading}
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-300">Password</Label>
+                <Label htmlFor="password" className="text-sm font-medium text-gray-300">
+                  Password
+                </Label>
                 <Button 
                   variant="link" 
                   className="text-xs text-gray-400 hover:text-gray-300 p-0 h-auto font-normal"
                   type="button"
+                  disabled={loading}
                 >
                   Forgot your password?
                 </Button>
@@ -117,10 +136,12 @@ const AdminLogin = () => {
                 id="password"
                 name="password"
                 type="password"
+                placeholder="••••••••"
                 required
                 value={formData.password}
                 onChange={handleChange}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                disabled={loading}
               />
             </div>
           </form>
@@ -135,7 +156,6 @@ const AdminLogin = () => {
           >
             {loading ? 'Signing in...' : 'Login'}
           </Button>
-        
         </CardFooter>
       </Card>
     </div>

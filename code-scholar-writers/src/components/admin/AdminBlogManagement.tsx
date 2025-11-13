@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { getApiUrl } from '@/config/api';
 
 interface Blog {
   id: number;
@@ -65,7 +66,7 @@ const AdminBlogManagement = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/get_blogs.php?admin=true');
+      const response = await fetch(`${getApiUrl('get_blogs.php')}?admin=true`);
       const data = await response.json();
 
       if (data.success) {
@@ -123,7 +124,7 @@ const AdminBlogManagement = () => {
   };
 
   const handleAddBlog = async () => {
-    if (!formData.title.trim() || !formData.content.trim()) {
+    if (!(formData.title || '').trim() || !(formData.content || '').trim()) {
       showToastMessage('Title and content are required', 'error');
       return;
     }
@@ -131,23 +132,23 @@ const AdminBlogManagement = () => {
     setSaving(true);
     try {
       const slug = generateSlug(formData.title);
-      const response = await fetch('http://localhost/codescholarwriters-api/add_blog.php', {
+      const response = await fetch(getApiUrl('blog/create_blog.php'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: formData.title.trim(),
+          title: (formData.title || '').trim(),
           slug: slug,
-          excerpt: formData.excerpt.trim(),
-          content: formData.content.trim(),
-          author: formData.author.trim() || 'Admin',
-          featured_image: formData.featured_image.trim(),
-          category: formData.category.trim() || 'General',
-          tags: formData.tags.trim(),
+          excerpt: (formData.excerpt || '').trim(),
+          content: (formData.content || '').trim(),
+          author: (formData.author || '').trim() || 'Admin',
+          featured_image: (formData.featured_image || '').trim(),
+          category: (formData.category || '').trim() || 'General',
+          tags: (formData.tags || '').trim(),
           status: formData.status,
-          meta_title: formData.meta_title.trim(),
-          meta_description: formData.meta_description.trim(),
+          meta_title: (formData.meta_title || '').trim(),
+          meta_description: (formData.meta_description || '').trim(),
           is_featured: formData.is_featured
         }),
       });
@@ -170,7 +171,7 @@ const AdminBlogManagement = () => {
   };
 
   const handleEditBlog = async () => {
-    if (!editingBlog || !formData.title.trim() || !formData.content.trim()) {
+    if (!editingBlog || !(formData.title || '').trim() || !(formData.content || '').trim()) {
       showToastMessage('Title and content are required', 'error');
       return;
     }
@@ -178,24 +179,24 @@ const AdminBlogManagement = () => {
     setSaving(true);
     try {
       const slug = generateSlug(formData.title);
-      const response = await fetch('http://localhost/codescholarwriters-api/update_blog.php', {
+      const response = await fetch(getApiUrl('blog/update_blog.php'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           id: editingBlog.id,
-          title: formData.title.trim(),
+          title: (formData.title || '').trim(),
           slug: slug,
-          excerpt: formData.excerpt.trim(),
-          content: formData.content.trim(),
-          author: formData.author.trim() || 'Admin',
-          featured_image: formData.featured_image.trim(),
-          category: formData.category.trim() || 'General',
-          tags: formData.tags.trim(),
+          excerpt: (formData.excerpt || '').trim(),
+          content: (formData.content || '').trim(),
+          author: (formData.author || '').trim() || 'Admin',
+          featured_image: (formData.featured_image || '').trim(),
+          category: (formData.category || '').trim() || 'General',
+          tags: (formData.tags || '').trim(),
           status: formData.status,
-          meta_title: formData.meta_title.trim(),
-          meta_description: formData.meta_description.trim(),
+          meta_title: (formData.meta_title || '').trim(),
+          meta_description: (formData.meta_description || '').trim(),
           is_featured: formData.is_featured
         }),
       });
@@ -223,7 +224,7 @@ const AdminBlogManagement = () => {
     }
 
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/delete_blog.php', {
+      const response = await fetch(getApiUrl('blog/delete_blog.php'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

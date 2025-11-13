@@ -4,16 +4,21 @@ import { Link } from 'react-router-dom';
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Close menu when a link is clicked
+  const handleNavClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="../assets/logo.png" className="flex items-center space-x-2">
+          {/* Logo - Fixed: should be "/" not "../assets/logo.png" */}
+          <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">CS</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hidden sm:inline">
               CodeScholar Writers
             </span>
           </Link>
@@ -60,6 +65,8 @@ function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
           >
             <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
@@ -73,40 +80,40 @@ function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
+          <div className="md:hidden py-4 border-t border-gray-100 bg-white/95">
             <nav className="flex flex-col space-y-4">
               <Link 
                 to="/" 
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 px-2 py-1"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleNavClick}
               >
                 Home
               </Link>
               <Link 
                 to="/about" 
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 px-2 py-1"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleNavClick}
               >
                 About
               </Link>
               <Link 
                 to="/services" 
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 px-2 py-1"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleNavClick}
               >
                 Services
               </Link>
               <Link 
                 to="/pricing" 
                 className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 px-2 py-1"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleNavClick}
               >
                 Pricing
               </Link>
               <Link 
                 to="/contact" 
                 className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-medium shadow-lg text-center"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={handleNavClick}
               >
                 Get Started
               </Link>

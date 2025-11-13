@@ -12,6 +12,11 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
+// API Base URL - automatically switches between local and production
+const API_BASE = window.location.hostname === 'localhost'
+  ? 'http://localhost/codescholarwriters-api'
+  : '/codescholarwriters-api';
+
 const AdminRegister = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -34,45 +39,81 @@ const AdminRegister = () => {
     });
   };
 
+  const validateForm = () => {
+    // Trim whitespace
+    const trimmedUsername = formData.username.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedFullName = formData.full_name.trim();
+
+    // Check required fields
+    if (!trimmedUsername || !trimmedEmail || !formData.password || !trimmedFullName) {
+      setError('All fields are required');
+      return false;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      setError('Please enter a valid email address');
+      return false;
+    }
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return false;
+    }
+
+    // Validate password length
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return false;
+    }
+
+    // Validate username length
+    if (trimmedUsername.length < 3) {
+      setError('Username must be at least 3 characters');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setSuccess('');
 
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
-    // Validate password length
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
+    // Validate form
+    if (!validateForm()) {
       setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch('http://localhost/codescholarwriters-api/admin/register.php', {
+      const response = await fetch(`${API_BASE}/admin/register.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
+          username: formData.username.trim(),
+          email: formData.email.trim(),
           password: formData.password,
-          full_name: formData.full_name,
+          full_name: formData.full_name.trim(),
           role: formData.role
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
-        setSuccess('Admin account created successfully! You can now login.');
+        setSuccess('Admin account created successfully! Redirecting to login...');
         // Reset form
         setFormData({
           username: '',
@@ -88,9 +129,10 @@ const AdminRegister = () => {
           navigate('/admin/login');
         }, 2000);
       } else {
-        setError(data.error || 'Registration failed');
+        setError(data.error || 'Registration failed. Please try again.');
       }
     } catch (err) {
+      console.error('Registration error:', err);
       setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
@@ -107,6 +149,7 @@ const AdminRegister = () => {
               variant="link" 
               className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal"
               onClick={() => navigate('/admin/login')}
+              disabled={loading}
             >
               Sign In
             </Button>
@@ -131,7 +174,9 @@ const AdminRegister = () => {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="full_name" className="text-sm font-medium text-gray-300">Full Name</Label>
+              <Label htmlFor="full_name" className="text-sm font-medium text-gray-300">
+                Full Name *
+              </Label>
               <Input
                 id="full_name"
                 name="full_name"
@@ -140,45 +185,55 @@ const AdminRegister = () => {
                 required
                 value={formData.full_name}
                 onChange={handleChange}
+                disabled={loading}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium text-gray-300">Username</Label>
+              <Label htmlFor="username" className="text-sm font-medium text-gray-300">
+                Username *
+              </Label>
               <Input
                 id="username"
                 name="username"
                 type="text"
-                placeholder="Enter username"
+                placeholder="Enter username (min 3 characters)"
                 required
                 value={formData.username}
                 onChange={handleChange}
+                disabled={loading}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-300">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium text-gray-300">
+                Email *
+              </Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="your-email@example.com"
                 required
                 value={formData.email}
                 onChange={handleChange}
+                disabled={loading}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="role" className="text-sm font-medium text-gray-300">Role</Label>
+              <Label htmlFor="role" className="text-sm font-medium text-gray-300">
+                Role *
+              </Label>
               <select
                 id="role"
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
+                disabled={loading}
                 className="w-full px-3 py-2 bg-gray-700 border border-gray-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="admin">Admin</option>
@@ -188,7 +243,9 @@ const AdminRegister = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-300">Password</Label>
+              <Label htmlFor="password" className="text-sm font-medium text-gray-300">
+                Password *
+              </Label>
               <Input
                 id="password"
                 name="password"
@@ -197,20 +254,24 @@ const AdminRegister = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
+                disabled={loading}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">
+                Confirm Password *
+              </Label>
               <Input
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
-                placeholder="Confirm password"
+                placeholder="Confirm your password"
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                disabled={loading}
                 className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -231,6 +292,7 @@ const AdminRegister = () => {
             variant="link" 
             className="w-full text-gray-400 hover:text-gray-300"
             onClick={() => navigate('/admin/login')}
+            disabled={loading}
           >
             Already have an account? Login here
           </Button>
