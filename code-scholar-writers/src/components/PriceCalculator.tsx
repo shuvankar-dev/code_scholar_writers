@@ -75,6 +75,7 @@ const PriceCalculator = () => {
     selectedAddon: '',
     toolSelection: '',
     projectDescription: '',
+    subject: '',
     currency: 'INR'
   });
 
@@ -420,6 +421,7 @@ const PriceCalculator = () => {
           selectedAddon: '',
           toolSelection: '',
           projectDescription: '',
+          subject: '',
           currency: 'INR'
         });
         setCalculatedPrice(0);
@@ -564,9 +566,6 @@ const PriceCalculator = () => {
               placeholder={`Min: ${selectedService.min_units}`}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <p className="text-xs text-gray-500 mt-1">
-              Approximately {formData.units ? Math.ceil(Number(formData.units) / 250) : 0} pages (250 words per page)
-            </p>
           </div>
         );
 
@@ -650,8 +649,8 @@ const PriceCalculator = () => {
           </div>
         ) : (
           <form className="space-y-8">
-            {/* Service Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Row 1: Service Selection & Unit Input */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="flex items-center justify-between text-sm font-medium text-gray-700 mb-2">
                   <div className="flex items-center gap-2">
@@ -674,28 +673,47 @@ const PriceCalculator = () => {
               </div>
 
               {selectedService && renderUnitInput()}
-
-              <div>
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                  <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
-                  Academic Level
-                </label>
-                <select
-                  value={formData.academicLevelId}
-                  onChange={(e) => handleInputChange('academicLevelId', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">Select academic level</option>
-                  {calculatorData.academicLevels.map(level => (
-                    <option key={level.id} value={level.id}>
-                      {level.name} (+₹{level.multiplier})
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
 
-            {/* Urgency/Deadline Row */}
+            {/* Row 2: Academic Level & Subject/Topic */}
+            {selectedService && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                    <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
+                    Academic Level
+                  </label>
+                  <select
+                    value={formData.academicLevelId}
+                    onChange={(e) => handleInputChange('academicLevelId', e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="">Select academic level</option>
+                    {calculatorData.academicLevels.map(level => (
+                      <option key={level.id} value={level.id}>
+                        {level.name} (+₹{level.multiplier})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                    <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
+                    Subject/Topic
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.subject}
+                    onChange={(e) => handleInputChange('subject', e.target.value)}
+                    placeholder="e.g., Computer Science, Business Management, Psychology"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Row 3: Deadline, Add-ons & Currency */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
